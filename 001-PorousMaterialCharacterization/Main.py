@@ -76,8 +76,6 @@ def DeePore1(INPUT_SHAPE,OUTPUT_SHAPE):
     p2 = MaxPooling2D((2, 2)) (c2) 
     c3 = Conv2D(18, (2, 2), kernel_initializer='he_normal', padding='same') (p2)
     p3 = MaxPooling2D((2, 2)) (c3)     
-#    c4 = Conv2D(24, (2, 2), kernel_initializer='he_normal', padding='same') (p3)
-#    p4 = MaxPooling2D((2, 2)) (c4)  
     f=tf.keras.layers.Flatten()(p3)
     d1=tf.keras.layers.Dense(1515, activation=tf.nn.relu)(f)
     d2=tf.keras.layers.Dense(1515, activation=tf.nn.sigmoid)(d1)
@@ -153,7 +151,7 @@ def trainmodel(DataName,retrain=0):
     model=DeePore1(INPUT_SHAPE,OUTPUT_SHAPE)
     batch_size=10     
     if retrain:
-        model.fit(gener(batch_size,DataName,TrainList), epochs=1,steps_per_epoch=int(len(TrainList)/batch_size),
+        model.fit(gener(batch_size,DataName,TrainList), epochs=10,steps_per_epoch=int(len(TrainList)/batch_size),
                   validation_data=gener(batch_size*2,DataName,EvalList),validation_steps=int(len(EvalList)/batch_size/2),callbacks=[history])
         
         hist=[history.batch ,history.batch_loss,history.batch_time,
@@ -170,7 +168,7 @@ def trainmodel(DataName,retrain=0):
     return model 
 ## ********* MAIN SECTION ******** ##
 DataName='Data.h5'
-check_get('https://www.digitalrocksportal.org/projects/215/images/159816/download/',DataName)               
+check_get('https://www.1digitalrocksportal.org/projects/215/images/159816/download/',DataName)               
 List,MIN,MAX=prep(DataName)
 
 #List=List[0:200]
