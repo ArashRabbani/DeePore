@@ -1,9 +1,8 @@
-import DeePore as dp
-dp.checkdata()
+import DeePore  
 
 DataName='DeePore_Compact_Data.h5'
-dp.check_get('https://www.1digitalrocksportal.org/projects/215/images/159816/download/',DataName)               
-List,MIN,MAX=dp.prep(DataName)
+DeePore.check_get('https://www.1digitalrocksportal.org/projects/215/images/159816/download/',DataName)               
+List,MIN,MAX=prep(DataName)
 
 #List=List[0:200]
 N=np.int32([0,len(List)*.7,len(List)*.71,len(List)])
