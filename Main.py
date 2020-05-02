@@ -1,4 +1,4 @@
-from DeePore import deepore as dp
+import DeePore as dp
 
 
 DataName='DeePore_Compact_Data.h5'
