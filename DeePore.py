@@ -94,7 +94,7 @@ def prep(Data):
             MAX[Singles+100*I:Singles+100*(I+1)]=np.max(MAX[Singles+100*I:Singles+100*(I+1)])
             MIN[Singles+100*I:Singles+100*(I+1)]=np.min(MIN[Singles+100*I:Singles+100*(I+1)])
     return List,MIN,MAX
-def gener(batch_size,Data,List):
+def gener(batch_size,Data,List,MIN,MAX):
     with h5py.File(Data,'r') as f:
         length=len(List)
         samples_per_epoch = length
@@ -122,15 +122,15 @@ def hdf_shapes(Name,Fields):
         for I in range(len(Fields)):
             Shape[I]=f[Fields[I]].shape  
     return Shape                
-def trainmodel(DataName,TrainList,EvalList,retrain=0):
+def trainmodel(DataName,TrainList,EvalList,MIN,MAX,retrain=0):
     global CB; CB=[]
     SaveName='Model.h5';
     INPUT_SHAPE,OUTPUT_SHAPE =hdf_shapes(DataName,('X','Y')); 
     model=DeePore1(INPUT_SHAPE,OUTPUT_SHAPE)
     batch_size=10     
     if retrain:
-        model.fit(gener(batch_size,DataName,TrainList), epochs=100,steps_per_epoch=int(len(TrainList)/batch_size),
-                  validation_data=gener(batch_size*2,DataName,EvalList),validation_steps=int(len(EvalList)/batch_size/2))
+        model.fit(gener(batch_size,DataName,TrainList,MIN,MAX), epochs=100,steps_per_epoch=int(len(TrainList)/batch_size),
+                  validation_data=gener(batch_size*2,DataName,EvalList,MIN,MAX),validation_steps=int(len(EvalList)/batch_size/2))
         model.save_weights(SaveName);
     else:
         model.load_weights(SaveName)
@@ -142,7 +142,7 @@ def splitdata(List):
     TestList=List[N[2]:N[3]]
     return TrainList, EvalList, TestList
 def testmodel(model,DataName,TestList,MIN,MAX):
-    G=gener(len(TestList),DataName,TestList)
+    G=gener(len(TestList),DataName,TestList,MIN,MAX)
     L=next(G)
     x=L[0]
     y=L[1]
