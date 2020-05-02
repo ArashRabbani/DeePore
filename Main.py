@@ -116,7 +116,6 @@ def prep(Data):
     return List,MIN,MAX
 def gener(batch_size,Data,List):
     with h5py.File(Data,'r') as f:
-        # length=f['X'].shape[0]
         length=len(List)
         samples_per_epoch = length
         number_of_batches = int(samples_per_epoch/batch_size)
