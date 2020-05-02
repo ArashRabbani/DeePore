@@ -174,3 +174,19 @@ def splitdaat(List):
 def check_training(model):
     plt.plot(model.history[2],model.history[1])
     plt.xlabel('Time (s)'); plt.ylabel('Training Loss (MSE)'); plt.rcParams.update({'font.size': 5})
+def testmodel(model,DataName,TestList,MIN,MAX):
+    G=gener(len(TestList),DataName,TestList)
+    L=next(G)
+    x=L[0]
+    y=L[1]
+    y2=model.predict(L[0])
+    print('\n# Evaluate on '+ str(TestList.shape[0]) + ' test data')
+    results=model.evaluate(x,y,batch_size=50)
+    print('test loss, test acc:', results)
+    #  Denormalize the predictions
+    MIN=np.reshape(MIN,(1,y.shape[1]))
+    MAX=np.reshape(MAX,(1,y.shape[1]))
+    y=np.multiply(y,(MAX-MIN))+MIN
+    y2=np.multiply(y2,(MAX-MIN))+MIN
+    y[:,0]=10**y[:,0]
+    y2[:,0]=10**y2[:,0]

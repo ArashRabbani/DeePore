@@ -8,27 +8,14 @@ List,MIN,MAX=dp.prep(DataName)
 
 TrainList, EvalList, TestList = dp.splitdata(List)
 
-model=dp.trainmodel(DataName,retrain=0)  
+model=dp.trainmodel(DataName,TrainList,EvalList,retrain=0)  
 
 # check the training performance
 dp.check_training(model)
 
 #  Now Testing the Model on the test samples
-G=gener(len(TestList),DataName,TestList)
-L=next(G)
-x=L[0]
-y=L[1]
-y2=model.predict(L[0])
-print('\n# Evaluate on '+ str(TestList.shape[0]) + ' test data')
-results=model.evaluate(x,y,batch_size=50)
-print('test loss, test acc:', results)
-#  Denormalize the predictions
-MIN=np.reshape(MIN,(1,y.shape[1]))
-MAX=np.reshape(MAX,(1,y.shape[1]))
-y=np.multiply(y,(MAX-MIN))+MIN
-y2=np.multiply(y2,(MAX-MIN))+MIN
-y[:,0]=10**y[:,0]
-y2[:,0]=10**y2[:,0]
+dp.testmodel(model,DataName,TestList,MIN,MAX)
+
 
 
 #  Show prediction of 15 single-value features
