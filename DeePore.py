@@ -143,7 +143,7 @@ def hdf_shapes(Name,Fields):
         for I in range(len(Fields)):
             Shape[I]=f[Fields[I]].shape  
     return Shape                
-def trainmodel(DataName,retrain=0):
+def trainmodel(DataName,TrainList,EvalList,retrain=0):
     global CB; CB=[]
     SaveName='Model.h5';
     INPUT_SHAPE,OUTPUT_SHAPE =hdf_shapes(DataName,('X','Y')); 
@@ -165,7 +165,7 @@ def trainmodel(DataName,retrain=0):
             hist = pickle.load(fp)    
             model.history=hist
     return model 
-def splitdaat(List):
+def splitdata(List):
     N=np.int32([0,len(List)*.64,len(List)*.8,len(List)])
     TrainList=List[N[0]:N[1]]
     EvalList=List[N[1]:N[2]]
