@@ -1,7 +1,7 @@
 import DeePore  
 
 DataName='DeePore_Compact_Data.h5'
-DeePore.check_get('https://www.1digitalrocksportal.org/projects/215/images/159816/download/',DataName)               
+check_get('https://www.1digitalrocksportal.org/projects/215/images/159816/download/',DataName)               
 List,MIN,MAX=prep(DataName)
 
 #List=List[0:200]
