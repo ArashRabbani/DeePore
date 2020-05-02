@@ -176,4 +176,4 @@ def testmodel(model,DataName,TestList,MIN,MAX):
         if I==0:
             ax.set_yscale('log')
             ax.set_xscale('log')
-    plt.savefig('Single-value_Features.png')
+    plt.savefig('images/Single-value_Features.png')
