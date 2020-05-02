@@ -171,3 +171,6 @@ def splitdaat(List):
     EvalList=List[N[1]:N[2]]
     TestList=List[N[2]:N[3]]
     return TrainList, EvalList, TestList
+def check_training(model):
+    plt.plot(model.history[2],model.history[1])
+    plt.xlabel('Time (s)'); plt.ylabel('Training Loss (MSE)'); plt.rcParams.update({'font.size': 5})

@@ -8,12 +8,10 @@ List,MIN,MAX=dp.prep(DataName)
 
 TrainList, EvalList, TestList = dp.splitdata(List)
 
-model=dp.trainmodel(DataName,retrain=1)  
-
+model=dp.trainmodel(DataName,retrain=0)  
 
 # check the training performance
-plt.plot(model.history[2],model.history[1])
-plt.xlabel('Time (s)'); plt.ylabel('Training Loss (MSE)'); plt.rcParams.update({'font.size': 5})
+dp.check_training(model)
 
 #  Now Testing the Model on the test samples
 G=gener(len(TestList),DataName,TestList)
