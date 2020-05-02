@@ -165,3 +165,9 @@ def trainmodel(DataName,retrain=0):
             hist = pickle.load(fp)    
             model.history=hist
     return model 
+def splitdaat(List):
+    N=np.int32([0,len(List)*.64,len(List)*.8,len(List)])
+    TrainList=List[N[0]:N[1]]
+    EvalList=List[N[1]:N[2]]
+    TestList=List[N[2]:N[3]]
+    return TrainList, EvalList, TestList
