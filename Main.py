@@ -10,9 +10,6 @@ TrainList, EvalList, TestList = dp.splitdata(List)
 
 model=dp.trainmodel(DataName,TrainList,EvalList,retrain=0)  
 
-# check the training performance
-dp.check_training(model)
-
 #  Now Testing the Model on the test samples
 dp.testmodel(model,DataName,TestList,MIN,MAX)
 

@@ -8,27 +8,6 @@ import os, sys, datetime
 import matplotlib.pyplot as plt
 import pickle
 
-class TrainingHistory(tf.keras.callbacks.Callback):
-    def on_train_begin(self, logs={}):
-        self.start_time=datetime.datetime.now()
-        self.epoch=[]
-        self.epoch_val_loss = []
-        self.epoch_loss = []
-        self.epoch_time = []
-        self.batch=[]
-        self.batch_loss = []
-        self.batch_time = []
-    def on_epoch_end(self, epoch, logs={}):
-        self.epoch.append(epoch)
-        self.epoch_val_loss.append(logs.get('val_loss'))
-        self.epoch_loss.append(logs.get('loss'))
-        self.epoch_time.append((datetime.datetime.now()-self.start_time).total_seconds())
-    def on_batch_end(self, batch, logs={}):
-        self.batch.append(batch)
-        self.batch_loss.append(logs.get('loss'))
-        self.batch_time.append((datetime.datetime.now()-self.start_time).total_seconds())        
-history = TrainingHistory()
-
 def check_get(url,File_Name): 
     from urllib.request import urlretrieve   
     def download_callback(blocknum, blocksize, totalsize):
@@ -151,19 +130,10 @@ def trainmodel(DataName,TrainList,EvalList,retrain=0):
     batch_size=10     
     if retrain:
         model.fit(gener(batch_size,DataName,TrainList), epochs=100,steps_per_epoch=int(len(TrainList)/batch_size),
-                  validation_data=gener(batch_size*2,DataName,EvalList),validation_steps=int(len(EvalList)/batch_size/2),callbacks=[history])
-        
-        hist=[history.batch ,history.batch_loss,history.batch_time,
-              history.epoch,history.epoch_loss,history.epoch_time,history.epoch_val_loss]
-        model.history=hist
-        with open('hist', 'wb') as fp:
-            pickle.dump(hist, fp)
+                  validation_data=gener(batch_size*2,DataName,EvalList),validation_steps=int(len(EvalList)/batch_size/2))
         model.save_weights(SaveName);
     else:
         model.load_weights(SaveName)
-        with open ('hist', 'rb') as fp:
-            hist = pickle.load(fp)    
-            model.history=hist
     return model 
 def splitdata(List):
     N=np.int32([0,len(List)*.64,len(List)*.8,len(List)])
@@ -171,9 +141,6 @@ def splitdata(List):
     EvalList=List[N[1]:N[2]]
     TestList=List[N[2]:N[3]]
     return TrainList, EvalList, TestList
-def check_training(model):
-    plt.plot(model.history[2],model.history[1])
-    plt.xlabel('Time (s)'); plt.ylabel('Training Loss (MSE)'); plt.rcParams.update({'font.size': 5})
 def testmodel(model,DataName,TestList,MIN,MAX):
     G=gener(len(TestList),DataName,TestList)
     L=next(G)
