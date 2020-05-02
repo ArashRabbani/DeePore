@@ -4,39 +4,38 @@ DeePore is a deep learning workflow for rapid estimation of a wide range of poro
 [![Image](images/Summary.jpg)]()
 
 The output of this model is an array with 1515 elements that are described in this table:
-| Output   indices | Value (unit)                                 |   |   |   |
-|------------------|----------------------------------------------|---|---|---|
-| 1                | Absolute Permeability (px2)                  |   |   |   |
-| 2                | Formation Factor (ratio)                     |   |   |   |
-| 3                | Cementation Factor (ratio)                   |   |   |   |
-| 4                | pore density (1/px3)                         |   |   |   |
-| 5                | Tortuosity (ratio)                           |   |   |   |
-| 6                | Average Coorination Number                   |   |   |   |
-| 7                | Average Throat Radius (px)                   |   |   |   |
-| 8                | Average Pore Radius (px)                     |   |   |   |
-| 9                | Average Throat Length (px)                   |   |   |   |
-| 10               | Pore to Throat Aspect ratio                  |   |   |   |
-| 11               | Specific Surface (1/px)                      |   |   |   |
-| 12               | Pore Sphericity (ratio)                      |   |   |   |
-| 13               | Grain Sphericity (ratio)                     |   |   |   |
-| 14               | Average Grain Radius (ratio)                 |   |   |   |
-| 15               | Relative Young Module (ratio)                |   |   |   |
-| 16-115           | Leveret J Function (ratio)                   |   |   |   |
-| 116 - 215        | Wetting Relative Permeability (fraction)     |   |   |   |
-| 216 - 315        | Non-Wetting Relative Permeability (fraction) |   |   |   |
-| 316 - 415        | Two-point Correlation Function (1/px)        |   |   |   |
-| 416 - 515        | Pore Radius Distribution (px)                |   |   |   |
-| 516 - 615        | Throat Radius Distribution (px)              |   |   |   |
-| 616 - 715        | Throat Lenght Distribution (px)              |   |   |   |
-| 716 - 815        | Pore Inscribed Radius Distribution (px)      |   |   |   |
-| 816 - 915        | Throat Inscribed Radius Distribution (px)    |   |   |   |
-| 916 - 1015       | Throat Average Distance (px)                 |   |   |   |
-| 1016 - 1115      | Throat Permeability Distribution (px2)       |   |   |   |
-| 1116 - 1215      | Coordination Number Distribution             |   |   |   |
-| 1216 - 1315      | Pore Sphericity Distribution (ratio)         |   |   |   |
-| 1316 - 1415      | Grain Sphericity Distribution (ratio)        |   |   |   |
-| 1416 - 1515      | Grain Radius Distribution (px)               |   |   |   |
-
+|  Output indices  |                 Value (unit)                 |
+|:----------------:|:--------------------------------------------:|
+|         1        |         Absolute Permeability (px2)          |
+|         2        |           Formation Factor (ratio)           |
+|         3        |          Cementation Factor (ratio)          |
+|         4        |             pore density (1/px3)             |
+|         5        |              Tortuosity (ratio)              |
+|         6        |          Average Coorination Number          |
+|         7        |          Average Throat Radius (px)          |
+|         8        |           Average Pore Radius (px)           |
+|         9        |          Average Throat Length (px)          |
+|        10        |         Pore to Throat Aspect ratio          |
+|        11        |            Specific Surface (1/px)           |
+|        12        |            Pore Sphericity (ratio)           |
+|        13        |           Grain Sphericity (ratio)           |
+|        14        |         Average Grain Radius (ratio)         |
+|        15        |         Relative Young Module (ratio)        |
+|      16-115      |          Leveret J Function (ratio)          |
+|     116 - 215    |   Wetting Relative Permeability (fraction)   |
+|     216 - 315    | Non-Wetting Relative Permeability (fraction) |
+|     316 - 415    |     Two-point Correlation Function (1/px)    |
+|     416 - 515    |         Pore Radius Distribution (px)        |
+|     516 - 615    |        Throat Radius Distribution (px)       |
+|     616 - 715    |        Throat Lenght Distribution (px)       |
+|     716 - 815    |    Pore Inscribed Radius Distribution (px)   |
+|     816 - 915    |   Throat Inscribed Radius Distribution (px)  |
+|    916 - 1015    |         Throat Average Distance (px)         |
+|    1016 - 1115   |    Throat Permeability Distribution (px2)    |
+|    1116 - 1215   |       Coordination Number Distribution       |
+|    1216 - 1315   |     Pore Sphericity Distribution (ratio)     |
+|    1316 - 1415   |     Grain Sphericity Distribution (ratio)    |
+|    1416 - 1515   |        Grain Radius Distribution (px)        |
 
 ## Dataset of 17700 semi-realistic porous material images
 Here are 1500 of them to see how textures look like:
