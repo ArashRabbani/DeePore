@@ -1,4 +1,5 @@
-import DeePore  
+from DeePore import deepore as dp
+
 
 DataName='DeePore_Compact_Data.h5'
 check_get('https://www.1digitalrocksportal.org/projects/215/images/159816/download/',DataName)               
