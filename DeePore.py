@@ -182,7 +182,14 @@ def mat2np(Name): # load the MATLAB array as numpy array
     import scipy.io as sio
     B=sio.loadmat(Name)  
     return B['A']    
-def readsampledata(A):
-    if 
+def readsampledata(FileName='Data/Sample.mat'):
+    import os
+    extention=os.path.splitext(FileName)[1]
+    if extention=='.mat':
+        A=mat2np(FileName)
+    if extention=='.npy':
+        A=np.load(FileName)
+    
+        
 def predict(model,A,Res=1):
     
