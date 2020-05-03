@@ -197,9 +197,9 @@ def readsampledata(FileName='Data/Sample.mat'):
         AA=np.zeros((N,256,256,3))
         
         a=0
-        for I in len(LO[0]):
-            for J in len(LO[1]):
-                for K in len(LO[2]):
+        for I in range(len(LO[0])):
+            for J in range(len(LO[1])):
+                for K in range(len(LO[2])):
                     temp=A[LO[0][I]:HI[0][I],LO[1][I]:HI[1][I],LO[2][K]:HI[2][K]]
                     temp1=np.squeeze(temp[int(temp.shape[0]/2),:,:]);
                     temp2=np.squeeze(temp[:,int(temp.shape[1]/2),:]);
@@ -219,8 +219,8 @@ def readsampledata(FileName='Data/Sample.mat'):
         N=len(HI[0])*len(HI[1]) # number of subsamples
         AA=np.zeros((N,256,256,3))
         a=0
-        for I in len(LO[0]):
-            for J in len(LO[1]):
+        for I in range(len(LO[0])):
+            for J in range(len(LO[1])):
                 temp=A[LO[0][I]:HI[0][I],LO[1][I]:HI[1][I]]
                 AA[a,...]=np.stack((temp,np.flip(temp,axis=0),np.flip(temp,axis=1)),axis=2)
                 a=a+1
