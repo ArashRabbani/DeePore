@@ -190,18 +190,59 @@ def readsampledata(FileName='Data/Sample.mat'):
         A=mat2np(FileName)
     if extention=='.npy':
         A=np.load(FileName)
-    if extention=='.png' or extention=='.jpg' or extention=='.bmp' or extention=='.tif':
-        A=plt.imread(filename)
+    if extention=='.png' or extention=='.jpg' or extention=='.bmp':
+        A=plt.imread(FileName)
         if len(A.shape)!=2:
+            print('Converting image to grayscale...')
+            A=np.mean(A,axis=2)
             print('Converting image to binary...')
             ret,A = cv2.threshold(A,127,255,cv2.THRESH_BINARY)
-            A=np.mean(A,axis=2)
 
-    if A.shape[0]!=256 or A.shape[1]!=256:
-        print('Resizing the image to 256x256')
-        A=cv2.resize(A, (256,256),interpolation = cv2.INTER_NEAREST) 
     A=np.int8(A!=0)   
-    return A
+    LO,HI=makeblocks(A.shape,w=256,ov=.1)
+    AA=[]
+    AA=np.zeros((len(HI)*len(LO),256,256,3))
+    a=0
+    for lo in LO:
+        for hi in HI:
+            temp=A[lo[0]:hi[0],lo[1]:hi[1]]
+            AA[a,...]=np.stack((temp,np.flip(temp,axis=0),np.flip(temp,axis=1)),axis=2)
+            a=a+1
+    return AA
         
-def predict(model,A,resolution=1,large_image=0):
+def predict(model,A,image_size_mm=1.28,large_image=0):
     
+    
+    # plt.imsave('Data/Sample.png',np.squeeze(A[:,:,128]),cmap='gray')
+    plt.imsave('Data/Sample.jpg',np.squeeze(A[:,:,128]),cmap='gray')
+    
+def makeblocks(SS,n=None,w=None,ov=0):
+    # w is the fixed width of the blocks and n is the number of blocks
+    # if the number be high while w is fixed, blocks start to overlap and ov is between 0 to 1 gets desired overlapping degree
+    # example:dp.makeblocks([100,200],w=16,ov=.1)
+    import numpy as np
+    HI=[]
+    LO=[]
+    for S in SS:
+        if w==None and n!=None:
+            mid=np.ceil(np.linspace(0,S,n+1));
+            lo=mid; lo=np.delete(lo,-1);
+            hi=mid; hi=np.delete(hi,0);
+        if w!=None and n!=None:
+            mid=np.ceil(np.linspace(0,S-w,n));
+            lo=mid; 
+            hi=mid+w
+        if w!=None and n==None: # good for image translation
+            mid=np.asarray(np.arange(0,S,int(w*(1-ov))))
+            lo=mid; 
+            hi=mid+w    
+            p=np.argwhere(hi>S)
+            if len(p)>0:
+                diff=hi[p]-S
+                hi[p]=S
+                lo[p]=lo[p]-diff
+                hi=np.unique(hi)
+                lo=np.unique(lo)
+        HI.append(hi)
+        LO.append(lo)        
+    return LO,HI       

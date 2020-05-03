@@ -7,6 +7,8 @@ model=dp.trainmodel(DataName,TrainList,EvalList,MIN,MAX,retrain=0)
 #  Now Testing the Model on the test samples
 dp.testmodel(model,DataName,TestList,MIN,MAX)
 
-dp.predict.absperm('')
-
+# dp.predict.absperm('')
+A=dp.readsampledata(FileName='Data/Sample_gray.jpg')
+A=dp.readsampledata(FileName='Data/Sample.jpg')
+ 
 
