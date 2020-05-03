@@ -1,25 +1,9 @@
 # DeePore: Deep learning for rapid characterization of porous materials
 ## Summary
 DeePore is a deep learning workflow for rapid estimation of a wide range of porous material properties based on the binarized micro-tomography images. We generated 17700 semi-real 3-D micro-structures of porous geo-materials and 30 physical properties of each sample are calculated using physical simulations on the corresponding pore network models. The dataset of porous material images obtained and physical features of them are unprecedented in terms of the number of samples and variety of the extracted features. Next, a re-designed feed-forward convolutional neural network is trained based on the dataset to estimate several morphological, hydraulic, electrical, and mechanical characteristics of porous material in a fraction of a second. The average coefficient of determination (R2) for 3173 testing samples is 0.9385 which is very reasonable considering the wide range of micro-structure textures and extracted features. This workflow is compatible with any physical size of the images due to its dimensionless approach. 
-[comment]: [![Image](images/Summary.jpg)]()
+[![Image](images/Summary.jpg)]()
 
-
-<figure>
-  <img src="{{site.url}}/images/Summary.jpg" alt="my alt text"/>
-  <figcaption>
-  DeePore data workflow for generating the ground truth data and training the CNN based on that, original binary
-geometry (a), solid and void spaces (b and e), labeld map of nodes (c and f), solid and pore network models (d and g), some of
-physical simulations on the pore network (h1 to h3), calculated single{value features, as well as the functions and distributions
-(i), 
-atten array of ground truth data (j), three perpendicular mid-planes out of the 3-D volumetric data (k), structure of three
-selected planes with one as solid and zero as void space (l), normalized three distance maps of the solid space which mimics
-red, green, and blue channels of a synthetic RGB image (m), input feature map of the porous media as a fictitious RGB image
-(n), (o) structure of the designed CNN with 8 layers each of which described in the table below.
-
-  </figcaption>
-</figure>
-
-DeePore data workflow for generating the ground truth data and training the CNN based on that, original binary
+Figure 1. DeePore data workflow for generating the ground truth data and training the CNN based on that, original binary
 geometry (a), solid and void spaces (b and e), labeld map of nodes (c and f), solid and pore network models (d and g), some of
 physical simulations on the pore network (h1 to h3), calculated single{value features, as well as the functions and distributions
 (i), 
