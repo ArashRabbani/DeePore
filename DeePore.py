@@ -190,6 +190,22 @@ def readsampledata(FileName='Data/Sample.mat'):
         A=mat2np(FileName)
     if extention=='.npy':
         A=np.load(FileName)
+    if extention=='.npy' or extention=='.mat':    
+        A=np.int8(A!=0)   
+        LO,HI=makeblocks(A.shape,w=256,ov=.1)
+        N=len(HI[0])*len(HI[1])*len(HI[2]) # number of subsamples
+        AA=np.zeros((N,256,256,3))
+        
+        a=0
+        for I in len(LO[0]):
+            for J in len(LO[1]):
+                for K in len(LO[2]):
+                    temp=A[LO[0][I]:HI[0][I],LO[1][I]:HI[1][I],LO[2][K]:HI[2][K]]
+                    temp1=np.squeeze(temp[int(temp.shape[0]/2),:,:]);
+                    temp2=np.squeeze(temp[:,int(temp.shape[1]/2),:]);
+                    temp3=np.squeeze(temp[:,:,int(temp.shape[2]/2)]);
+                    AA[a,...]=np.stack((temp1,temp2,temp3),axis=2)
+                    a=a+1        
     if extention=='.png' or extention=='.jpg' or extention=='.bmp':
         A=plt.imread(FileName)
         if len(A.shape)!=2:
@@ -198,16 +214,16 @@ def readsampledata(FileName='Data/Sample.mat'):
             print('Converting image to binary...')
             ret,A = cv2.threshold(A,127,255,cv2.THRESH_BINARY)
 
-    A=np.int8(A!=0)   
-    LO,HI=makeblocks(A.shape,w=256,ov=.1)
-    AA=[]
-    AA=np.zeros((len(HI)*len(LO),256,256,3))
-    a=0
-    for lo in LO:
-        for hi in HI:
-            temp=A[lo[0]:hi[0],lo[1]:hi[1]]
-            AA[a,...]=np.stack((temp,np.flip(temp,axis=0),np.flip(temp,axis=1)),axis=2)
-            a=a+1
+        A=np.int8(A!=0)   
+        LO,HI=makeblocks(A.shape,w=256,ov=.1)
+        N=len(HI[0])*len(HI[1]) # number of subsamples
+        AA=np.zeros((N,256,256,3))
+        a=0
+        for I in len(LO[0]):
+            for J in len(LO[1]):
+                temp=A[LO[0][I]:HI[0][I],LO[1][I]:HI[1][I]]
+                AA[a,...]=np.stack((temp,np.flip(temp,axis=0),np.flip(temp,axis=1)),axis=2)
+                a=a+1
     return AA
         
 def predict(model,A,image_size_mm=1.28,large_image=0):
