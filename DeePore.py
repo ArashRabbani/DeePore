@@ -225,13 +225,67 @@ def readsampledata(FileName='Data/Sample.mat'):
                 AA[a,...]=np.stack((temp,np.flip(temp,axis=0),np.flip(temp,axis=1)),axis=2)
                 a=a+1
     return AA
-        
-def predict(model,A,image_size_mm=1.28,large_image=0):
+
+def normalize(A):
+    A_min = np.min(A)
+    return (A-A_min)/(np.max(A)-A_min)        
+def predict(model,A,MIN,MAX,res=5):
+    y=model.predict(A)
     
+    MIN=np.reshape(MIN,(1,y.shape[1]))
+    MAX=np.reshape(MAX,(1,y.shape[1]))
+    y=np.multiply(y,(MAX-MIN))+MIN
+    y[:,0]=10**y[:,0]
+    y=np.mean(y,axis=0)
+    with open('VarNames.txt') as f:
+        VarNames = list(f)
+        val=y[0:15]
+        val[0]=val[0]*res*res
+        val[3]=val[3]/res/res/res
+        val[10]=val[10]/res
+        val[6]=val[6]*res
+        val[7]=val[7]*res
+        val[8]=val[8]*res
+        # val[18]=val[18]/res
+        # val[25]=val[25]*res*res
+        # val[6,7,8,19,20,21,22,23,24,29]=val[6,7,8,19,20,21,22,23,24,29]*res
+        # val=[VarNames,val]
+    return val
     
     # plt.imsave('Data/Sample.png',np.squeeze(A[:,:,128]),cmap='gray')
     plt.imsave('Data/Sample.jpg',np.squeeze(A[:,:,128]),cmap='gray')
-    
+def maxpool2(A):
+    from scipy.ndimage.filters import maximum_filter
+    # C=np.zeros((A.shape[0]+1,A.shape[1]+1))
+    # C[1:,1:]=A
+    # A=C
+    print(A)
+    B=maximum_filter(A,footprint=np.ones((2,2)))
+    print(B)
+    B=np.delete(B, range(1, B.shape[0], 2), axis=0)  
+    B=np.delete(B, range(1, B.shape[1], 2), axis=1)
+    return B
+                   
+def ecl_distance(A):
+    B=np.zeros((A.shape[0],128,128,3))
+    from scipy.ndimage import distance_transform_edt as distance
+    for I in range(A.shape[0]):
+        for J in range(A.shape[3]):
+            t=distance(1-np.squeeze(A[I,:,:,J]))
+            t=normalize(t)
+            t=np.float32(t)
+            t = MaxPooling2D((2, 2)) (np.reshape(t,(1,256,256,1)))
+            t=np.float64(t)
+            B[I,:,:,J]=np.squeeze(t)
+    return B
+def show_feature_maps(A):
+    N=np.ceil(np.sqrt(A.shape[0]))
+    plt.figure(figsize=(N*10,N*10))
+    for I in range(A.shape[0]):
+        plt.subplot(N,N,I+1)
+        plt.imshow(np.squeeze(A[I,:,:,:]))  
+        plt.axis('off')
+    plt.show()
 def makeblocks(SS,n=None,w=None,ov=0):
     # w is the fixed width of the blocks and n is the number of blocks
     # if the number be high while w is fixed, blocks start to overlap and ov is between 0 to 1 gets desired overlapping degree
