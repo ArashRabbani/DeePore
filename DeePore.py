@@ -184,15 +184,24 @@ def mat2np(Name): # load the MATLAB array as numpy array
     return B['A']    
 def readsampledata(FileName='Data/Sample.mat'):
     import os
+    import cv2
     extention=os.path.splitext(FileName)[1]
     if extention=='.mat':
         A=mat2np(FileName)
     if extention=='.npy':
         A=np.load(FileName)
-    if extention=='.png' or extention=='.jpg' or extention=='.bmp' or extention=='.tiff'
-    A=plt.imread(filename)
+    if extention=='.png' or extention=='.jpg' or extention=='.bmp' or extention=='.tif':
+        A=plt.imread(filename)
+        if len(A.shape)!=2:
+            print('Converting image to binary...')
+            A=np.mean(A,axis=2)
+            A=np.int8(A!=0)
+            A[A==1]=255
+    if A.shape[0]!=256 or A.shape[1]!=256:
+        print('Resizing the image to 256x256')
+        A=cv2.resize(A, (256,256),interpolation = cv2.INTER_NEAREST) 
         
-    
+    return A
         
 def predict(model,A,Res=1):
     
