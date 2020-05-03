@@ -189,6 +189,9 @@ def readsampledata(FileName='Data/Sample.mat'):
         A=mat2np(FileName)
     if extention=='.npy':
         A=np.load(FileName)
+    if extention=='.png' or extention=='.jpg' or extention=='.bmp' or extention=='.tiff'
+    A=plt.imread(filename)
+        
     
         
 def predict(model,A,Res=1):
