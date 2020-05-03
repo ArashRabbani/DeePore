@@ -203,5 +203,5 @@ def readsampledata(FileName='Data/Sample.mat'):
     A=np.int8(A!=0)   
     return A
         
-def predict(model,A,Res=1):
+def predict(model,A,resolution=1,large_image=0):
     
