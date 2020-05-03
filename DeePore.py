@@ -158,7 +158,6 @@ def testmodel(model,DataName,TestList,MIN,MAX):
     y[:,0]=10**y[:,0]
     y2[:,0]=10**y2[:,0]
     # #  Show prediction of 15 single-value features
-    # import pandas as pd
     fig=plt.figure(figsize=(30,40))
     plt.rcParams.update({'font.size': 30})
     with open('VarNames.txt') as f:
@@ -179,3 +178,11 @@ def testmodel(model,DataName,TestList,MIN,MAX):
             ax.set_yscale('log')
             ax.set_xscale('log')
     plt.savefig('images/Single-value_Features.png')
+def mat2np(Name): # load the MATLAB array as numpy array
+    import scipy.io as sio
+    B=sio.loadmat(Name)  
+    return B['A']    
+def readsampledata(A):
+    if 
+def predict(model,A,Res=1):
+    

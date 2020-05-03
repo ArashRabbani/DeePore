@@ -7,6 +7,6 @@ model=dp.trainmodel(DataName,TrainList,EvalList,MIN,MAX,retrain=0)
 #  Now Testing the Model on the test samples
 dp.testmodel(model,DataName,TestList,MIN,MAX)
 
-
+dp.predict.absperm('')
 
 
