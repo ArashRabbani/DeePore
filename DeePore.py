@@ -1,4 +1,3 @@
-
 import h5py
 import numpy as np
 import tensorflow as tf
@@ -7,7 +6,6 @@ from tensorflow.keras.models import Model
 import os, sys, datetime
 import matplotlib.pyplot as plt
 import pickle
-
 def check_get(url,File_Name): 
     from urllib.request import urlretrieve   
     def download_callback(blocknum, blocksize, totalsize):
@@ -195,7 +193,6 @@ def readsampledata(FileName='Data/Sample.mat'):
         LO,HI=makeblocks(A.shape,w=256,ov=.1)
         N=len(HI[0])*len(HI[1])*len(HI[2]) # number of subsamples
         AA=np.zeros((N,256,256,3))
-        
         a=0
         for I in range(len(LO[0])):
             for J in range(len(LO[1])):
@@ -213,7 +210,6 @@ def readsampledata(FileName='Data/Sample.mat'):
             A=np.mean(A,axis=2)
             print('Converting image to binary...')
             ret,A = cv2.threshold(A,127,255,cv2.THRESH_BINARY)
-
         A=np.int8(A!=0)   
         LO,HI=makeblocks(A.shape,w=256,ov=.1)
         N=len(HI[0])*len(HI[1]) # number of subsamples
@@ -254,7 +250,6 @@ def normalize(A):
     return (A-A_min)/(np.max(A)-A_min)        
 def predict(model,A,MIN,MAX,res=5):
     y=model.predict(A)
-    
     MIN=np.reshape(MIN,(1,y.shape[1]))
     MAX=np.reshape(MAX,(1,y.shape[1]))
     y=np.multiply(y,(MAX-MIN))+MIN
@@ -274,7 +269,6 @@ def predict(model,A,MIN,MAX,res=5):
         # val[6,7,8,19,20,21,22,23,24,29]=val[6,7,8,19,20,21,22,23,24,29]*res
         # val=[VarNames,val]
     return val
-    
     # plt.imsave('Data/Sample.png',np.squeeze(A[:,:,128]),cmap='gray')
     plt.imsave('Data/Sample.jpg',np.squeeze(A[:,:,128]),cmap='gray')
 def maxpool2(A):
@@ -288,7 +282,6 @@ def maxpool2(A):
     B=np.delete(B, range(1, B.shape[0], 2), axis=0)  
     B=np.delete(B, range(1, B.shape[1], 2), axis=1)
     return B
-                   
 def ecl_distance(A):
     B=np.zeros((A.shape[0],128,128,3))
     from scipy.ndimage import distance_transform_edt as distance
@@ -347,26 +340,14 @@ def prettyresult(FileName):
     a=VarNames
     b=np.round(vals[0:15],7)
     f = open('file.txt', 'w')
+    t='Properties'
+    spa=' ' * (40-len(t))
+    f.write(t+spa+'Value'+'\n')
+    f.write('-' * 50+'\n')
     for i in range(len(b)):
-        # f.write("%20s  %5.3f \n" % (a[i], b[i]))
-
         t=a[i].strip()
         # t=t.replace('px','um')
         spa=' ' * (40-len(t))
         results=t +spa+str(b[i])+'\n'
         f.write(results)
-        # f.writelines(results)
     f.close()
-    
-    
-
-    # vals=np.random.rand(1515)
-    # with open('VarNames.txt') as f:
-    #     VarNames = list(f)
-    # a=VarNames
-    # b=vals[0:15]
-    # print(zip(a,b))
-    # import csv
-    # with open('text.csv', 'w') as f:
-    #     writer = csv.writer(f, delimiter=';')
-    #     writer.writerows(zip(a,b))
