@@ -350,4 +350,13 @@ def prettyresult(FileName):
         spa=' ' * (40-len(t))
         results=t +spa+str(b[i])+'\n'
         f.write(results)
+        
+    f.write('-' * 50+'\n')
+    for I in range(15):
+        
+        
+    
+    
     f.close()
+    
+    
