@@ -188,9 +188,9 @@ def readsampledata(FileName='Data/Sample.mat'):
     extention=os.path.splitext(FileName)[1]
     if extention=='.mat':
         A=mat2np(FileName)
-    if extention=='.npy':
+    if extention=='.npy' or extention=='.npz':
         A=np.load(FileName)
-    if extention=='.npy' or extention=='.mat':    
+    if extention=='.npy' or extention=='.mat' or extention=='.npz':    
         A=np.int8(A!=0)   
         LO,HI=makeblocks(A.shape,w=256,ov=.1)
         N=len(HI[0])*len(HI[1])*len(HI[2]) # number of subsamples
@@ -225,7 +225,30 @@ def readsampledata(FileName='Data/Sample.mat'):
                 AA[a,...]=np.stack((temp,np.flip(temp,axis=0),np.flip(temp,axis=1)),axis=2)
                 a=a+1
     return AA
-
+def writeh5slice(A,FileName,FieldName,Shape):
+    # example: writeh5slice(A,'test3.h5','X',Shape=[70,70,1])
+    import h5py
+    import numpy as np
+    D=len(Shape)  
+    if D==3:
+         maxshape=(None,Shape[0],Shape[1],Shape[2])
+         Shape0=(1,Shape[0],Shape[1],Shape[2])
+         A=np.reshape(A,Shape0)
+    if D==4:
+         maxshape=(None,Shape[0],Shape[1],Shape[2],Shape[3])  
+         Shape0=(1,Shape[0],Shape[1],Shape[2],Shape[3])
+         A=np.reshape(A,Shape0)
+    try:
+        with h5py.File(FileName, "a") as f:
+            arr=f[FieldName]
+            Slice=arr.shape[0]
+            arr.resize(arr.shape[0]+1, axis=0)
+            arr[Slice,...]=A
+        print('writing slice '+ str(Slice))
+    except:
+        with h5py.File(FileName, "w") as f:
+            f.create_dataset(FieldName, Shape0,maxshape=maxshape, chunks=True,dtype=np.uint8,compression="gzip", compression_opts=2)
+            f[FieldName][0,...]=A   
 def normalize(A):
     A_min = np.min(A)
     return (A-A_min)/(np.max(A)-A_min)        

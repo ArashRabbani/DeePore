@@ -1,4 +1,15 @@
 import DeePore as dp
+
+import glob
+path=r"C:\Users\rabar\Dropbox (The University of Manchester)\AR1\BigData\DeePore\DB256NPZ\*.npz";
+a=0
+for FileName in glob.glob(path):
+    A=dp.readsampledata(FileName)
+    dp.writeh5slice(A,'Data.h5','X',Shape=[256,256,1])
+    a=a+1
+    if a>5:
+        break
+
 DataName='Data/DeePore_Compact_Data.h5'
 dp.check_get('https://www.linktodata',DataName)               
 List,MIN,MAX=dp.prep(DataName)

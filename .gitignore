@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 Data/DeePore_Compact_Data.h5
+Data.h5
 Main.bat
 # C extensions
 *.so
