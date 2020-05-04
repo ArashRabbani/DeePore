@@ -339,3 +339,33 @@ def makeblocks(SS,n=None,w=None,ov=0):
         HI.append(hi)
         LO.append(lo)        
     return LO,HI       
+def prettyresult(FileName):
+    import numpy as np
+    vals=np.random.rand(1515)
+    with open('VarNames.txt') as f:
+        VarNames = list(f)
+    a=VarNames
+    b=vals[0:15]
+    f = open('file.txt', 'w')
+    for i in range(len(b)):
+        # f.write("%20s  %5.3f \n" % (a[i], b[i]))
+        
+
+        spa=' ' * (40-len(a[i]))
+        results=a[i] +spa+str(b[i])
+        f.write(results)
+        # f.writelines(results)
+    f.close()
+    
+    
+
+    # vals=np.random.rand(1515)
+    # with open('VarNames.txt') as f:
+    #     VarNames = list(f)
+    # a=VarNames
+    # b=vals[0:15]
+    # print(zip(a,b))
+    # import csv
+    # with open('text.csv', 'w') as f:
+    #     writer = csv.writer(f, delimiter=';')
+    #     writer.writerows(zip(a,b))
