@@ -337,7 +337,7 @@ def prettyresult(FileName):
     vals=np.random.rand(1515)
     with open('VarNames.txt') as f:
         VarNames = list(f)
-    a=VarNames
+    # a=VarNames
     b=np.round(vals[0:15],7)
     f = open('file.txt', 'w')
     t='Properties'
@@ -345,14 +345,17 @@ def prettyresult(FileName):
     f.write(t+spa+'Value'+'\n')
     f.write('-' * 50+'\n')
     for i in range(len(b)):
-        t=a[i].strip()
+        t=VarNames[i].strip()
         # t=t.replace('px','um')
         spa=' ' * (40-len(t))
         results=t +spa+str(b[i])+'\n'
         f.write(results)
         
-    f.write('-' * 50+'\n')
+    
     for I in range(15):
+        f.write('-' * 50+'\n')
+        f.write('# '+VarNames[I+15])    
+        f.write('-' * 50+'\n')
         
         
     
