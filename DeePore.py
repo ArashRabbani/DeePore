@@ -365,9 +365,6 @@ def prettyresult(FileName):
             t=str(J*.1)
             spa=' ' * (40-len(t))
             f.write(t+spa+str(vals[J])+'\n')
-            
-        
-    
     
     f.close()
     
