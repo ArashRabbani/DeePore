@@ -356,7 +356,15 @@ def prettyresult(FileName):
         f.write('-' * 50+'\n')
         f.write('# '+VarNames[I+15])    
         f.write('-' * 50+'\n')
-        
+        t='Wetting-sat (Sw)'
+        spa=' ' * (40-len(t))
+        f.write(t+spa+'Value'+'\n')
+        for J in range(10):
+
+            t=str(J*.1)
+            spa=' ' * (40-len(t))
+            f.write(t+spa+str(vals[J])+'\n')
+            
         
     
     
