@@ -353,6 +353,7 @@ def prettyresult(FileName):
         
     
     for I in range(15):
+        f.write('\n')
         f.write('-' * 50+'\n')
         f.write('# '+VarNames[I+15])    
         f.write('-' * 50+'\n')
