@@ -345,14 +345,13 @@ def prettyresult(FileName):
     with open('VarNames.txt') as f:
         VarNames = list(f)
     a=VarNames
-    b=vals[0:15]
+    b=np.round(vals[0:15],7)
     f = open('file.txt', 'w')
     for i in range(len(b)):
         # f.write("%20s  %5.3f \n" % (a[i], b[i]))
-        
 
-        
         t=a[i].strip()
+        # t=t.replace('px','um')
         spa=' ' * (40-len(t))
         results=t +spa+str(b[i])+'\n'
         f.write(results)

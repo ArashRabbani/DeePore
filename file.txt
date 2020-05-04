@@ -1,15 +1,15 @@
-Absolute Permeability (px2)             0.5688685327491619
-Formation Factor (ratio)                0.055497698984382504
-Cementation Factor (ratio)              0.20483767858337176
-pore density (1/px3)                    0.49671949796683534
-Tortuosity (ratio)                      0.520546447778797
-Average Coorination Number              0.39862687927713725
-Average Throat Radius (px)              0.8145001477183345
-Average Pore Radius (px)                0.322108488439513
-Average Throat Length (px)              0.8623420553684084
-Pore to Throat Aspect ratio             0.20750269758212758
-Specific Surface (1/px)                 0.14820467648035607
-Pore Sphericity (ratio)                 0.29039724109156684
-Grain Sphericity (ratio)                0.9783441446724208
-Average Grain Radius (ratio)            0.02040857339543123
-Relative Young Module (ratio)           0.8076546078080173
+Absolute Permeability (px2)             0.9472556
+Formation Factor (ratio)                0.9595868
+Cementation Factor (ratio)              0.9226425
+pore density (1/px3)                    0.6889517
+Tortuosity (ratio)                      0.0193767
+Average Coorination Number              0.5036628
+Average Throat Radius (px)              0.7606528
+Average Pore Radius (px)                0.2154051
+Average Throat Length (px)              0.2496195
+Pore to Throat Aspect ratio             0.9904662
+Specific Surface (1/px)                 0.4675361
+Pore Sphericity (ratio)                 0.7570574
+Grain Sphericity (ratio)                0.8466977
+Average Grain Radius (ratio)            0.9352462
+Relative Young Module (ratio)           0.2251982
