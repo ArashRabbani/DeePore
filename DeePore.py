@@ -351,8 +351,10 @@ def prettyresult(FileName):
         # f.write("%20s  %5.3f \n" % (a[i], b[i]))
         
 
-        spa=' ' * (40-len(a[i]))
-        results=a[i] +spa+str(b[i])
+        
+        t=a[i].strip()
+        spa=' ' * (40-len(t))
+        results=t +spa+str(b[i])+'\n'
         f.write(results)
         # f.writelines(results)
     f.close()
