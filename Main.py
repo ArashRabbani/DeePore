@@ -1,13 +1,29 @@
 import DeePore as dp
 import glob
+import numpy as np
+import p,px
 path=r"C:\Users\rabar\Dropbox (The University of Manchester)\AR1\BigData\DeePore\DB256NPZ\*.npz";
 a=0
+import os
+try:
+    os.remove('Data.h5')
+except:
+    pass
 for FileName in glob.glob(path):
     A=dp.readsampledata(FileName)
-    dp.writeh5slice(A,'Data.h5','X',Shape=[256,256,1])
+    B=dp.ecl_distance(A)
+    dp.writeh5slice(np.uint8(B*255),'Data.h5','X',Shape=[128,128,3])
+    C=px.readh5slice('Data/DeePore_Compact_Data.h5','Y',[a]) 
+    dp.writeh5slice(np.reshape(C,(1,1515,1)),'Data.h5','Y',Shape=[1515,1])
     a=a+1
-    if a>5:
-        break
+    
+
+
+import p,px
+D1=px.readh5slice('Data.h5','X',[1])  
+D2=px.readh5slice('Data.h5','Y',[1])  
+
+D=px.readh5slice('Data/DeePore_Compact_Data.h5','Y',[1])    
 DataName='Data/DeePore_Compact_Data.h5'
 dp.check_get('https://www.linktodata',DataName)               
 List,MIN,MAX=dp.prep(DataName)
@@ -19,6 +35,8 @@ model=dp.trainmodel(DataName,TrainList,EvalList,MIN,MAX,retrain=0)
 # A=dp.readsampledata(FileName='Data/Sample_gray.jpg')
 # A=dp.readsampledata(FileName='Data/Sample.jpg')
 A=dp.readsampledata(FileName='Data/Sample_large.mat')
+A=dp.readsampledata(FileName=r"A00013.npz")
+
 B=dp.ecl_distance(A)
 dp.show_feature_maps(B)
 single_values=dp.predict(model,B,MIN,MAX,res=4.8)

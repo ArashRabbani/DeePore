@@ -186,8 +186,10 @@ def readsampledata(FileName='Data/Sample.mat'):
     extention=os.path.splitext(FileName)[1]
     if extention=='.mat':
         A=mat2np(FileName)
-    if extention=='.npy' or extention=='.npz':
+    if extention=='.npy':
         A=np.load(FileName)
+    if extention=='.npz':
+        A=np.load(FileName)['A']   
     if extention=='.npy' or extention=='.mat' or extention=='.npz':    
         A=np.int8(A!=0)   
         LO,HI=makeblocks(A.shape,w=256,ov=.1)
@@ -226,6 +228,10 @@ def writeh5slice(A,FileName,FieldName,Shape):
     import h5py
     import numpy as np
     D=len(Shape)  
+    if D==2:
+         maxshape=(None,Shape[0],Shape[1])
+         Shape0=(1,Shape[0],Shape[1])
+         A=np.reshape(A,Shape0)
     if D==3:
          maxshape=(None,Shape[0],Shape[1],Shape[2])
          Shape0=(1,Shape[0],Shape[1],Shape[2])
@@ -235,6 +241,8 @@ def writeh5slice(A,FileName,FieldName,Shape):
          Shape0=(1,Shape[0],Shape[1],Shape[2],Shape[3])
          A=np.reshape(A,Shape0)
     try:
+        with h5py.File(FileName, "r") as f:
+            arr=f[FieldName]
         with h5py.File(FileName, "a") as f:
             arr=f[FieldName]
             Slice=arr.shape[0]
@@ -242,8 +250,8 @@ def writeh5slice(A,FileName,FieldName,Shape):
             arr[Slice,...]=A
         print('writing slice '+ str(Slice))
     except:
-        with h5py.File(FileName, "w") as f:
-            f.create_dataset(FieldName, Shape0,maxshape=maxshape, chunks=True,dtype=np.uint8,compression="gzip", compression_opts=2)
+        with h5py.File(FileName, "a") as f:
+            f.create_dataset(FieldName, Shape0,maxshape=maxshape, chunks=True,dtype=A.dtype,compression="gzip", compression_opts=2)
             f[FieldName][0,...]=A   
 def normalize(A):
     A_min = np.min(A)
@@ -287,7 +295,7 @@ def ecl_distance(A):
     from scipy.ndimage import distance_transform_edt as distance
     for I in range(A.shape[0]):
         for J in range(A.shape[3]):
-            t=distance(1-np.squeeze(A[I,:,:,J]))
+            t=distance(np.squeeze(A[I,:,:,J]))
             t=normalize(t)
             t=np.float32(t)
             t = MaxPooling2D((2, 2)) (np.reshape(t,(1,256,256,1)))

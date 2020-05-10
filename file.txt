@@ -1,4 +1,6 @@
 Properties                              Value
+
+
 --------------------------------------------------
 Absolute Permeability (px2)             0.9751928
 Formation Factor (ratio)                0.7575809
@@ -19,6 +21,7 @@ Relative Young Module (ratio)           0.7436861
 # Leveret J Function (ratio)
 --------------------------------------------------
 Wetting-sat (Sw)                        Value
+0
 0.0                                     0.9751927772667046
 0.1                                     0.7575809149334117
 0.2                                     0.8465203954256745
