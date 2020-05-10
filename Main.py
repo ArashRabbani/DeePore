@@ -1,9 +1,13 @@
 import DeePore as dp
 
 
-Path_complete='..\..\..\BigData\DeePore\DeePore_Dataset.h5'
 Path_compact='Data\DeePore_Compact_Data.h5'
+# Path_complete='..\..\..\BigData\DeePore\DeePore_Dataset.h5'
 # dp.create_compact_dataset(Path_complete,Path_compact)
+DataName=Path_compact
+List,MIN,MAX=dp.prep(DataName)
+TrainList, EvalList, TestList = dp.splitdata(List)
+model=dp.trainmodel(DataName,TrainList,EvalList,MIN,MAX,retrain=1)  
 
 
 
@@ -26,7 +30,7 @@ Path_compact='Data\DeePore_Compact_Data.h5'
     
 
 
-# import p,px
+
 # D1=px.readh5slice('Data.h5','X',[1])  
 # D2=px.readh5slice('Data.h5','Y',[1])  
 
