@@ -134,7 +134,7 @@ def trainmodel(DataName,TrainList,EvalList,MIN,MAX,retrain=0):
     model=DeePore1(INPUT_SHAPE,OUTPUT_SHAPE)
     batch_size=10     
     if retrain:
-        model.fit(gener(batch_size,DataName,TrainList,MIN,MAX), epochs=100,steps_per_epoch=int(len(TrainList)/batch_size),
+        model.fit(gener(batch_size,DataName,TrainList,MIN,MAX), epochs=1,steps_per_epoch=int(len(TrainList)/batch_size),
                   validation_data=gener(batch_size*2,DataName,EvalList,MIN,MAX),validation_steps=int(len(EvalList)/batch_size/2))
         model.save_weights(SaveName);
     else:
