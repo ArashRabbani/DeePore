@@ -1,8 +1,4 @@
 import DeePore as dp
-import glob
-import numpy as np
-import p,px
-import os
 
 
 Path_complete='..\..\..\BigData\DeePore\DeePore_Dataset.h5'
