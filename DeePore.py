@@ -3,9 +3,12 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras.layers import Conv2D, Input, MaxPooling2D
 from tensorflow.keras.models import Model
-import os, sys, datetime
+import os, sys
 import matplotlib.pyplot as plt
-import pickle
+try:
+    tf.compat.v1.disable_v2_behavior()
+except:
+    pass
 def check_get(url,File_Name): 
     from urllib.request import urlretrieve   
     def download_callback(blocknum, blocksize, totalsize):
