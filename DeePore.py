@@ -100,8 +100,11 @@ def gener(batch_size,Data,List,MIN,MAX):
         counter=0
         Sample_Weights=[None]
         while 1:
-            t1=f['X'][List[batch_size*counter:batch_size*(counter+1)],...]
-            t2=f['Y'][List[batch_size*counter:batch_size*(counter+1)],...]
+            t1=f['X'][np.sort(List[batch_size*counter:batch_size*(counter+1)]),...]
+            t2=f['Y'][np.sort(List[batch_size*counter:batch_size*(counter+1)]),...]
+
+            # t1=f['X'][List[batch_size*counter:batch_size*(counter+1)],...]
+            # t2=f['Y'][List[batch_size*counter:batch_size*(counter+1)],...]
             X_batch=t1.astype('float32')/255
             y_batch=t2.astype('float32')
             y_batch=np.reshape(y_batch,(y_batch.shape[0],y_batch.shape[1]))

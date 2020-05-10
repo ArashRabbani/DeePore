@@ -8,8 +8,13 @@ DataName=Path_compact
 List,MIN,MAX=dp.prep(DataName)
 TrainList, EvalList, TestList = dp.splitdata(List)
 model=dp.trainmodel(DataName,TrainList,EvalList,MIN,MAX,retrain=1)  
+# G=dp.gener(50,DataName,TestList,MIN,MAX)
+# L=next(G)
 
 
+# Data=DataName
+# import h5py
+# f=h5py.File(Data,'r')
 
 # D1=px.readh5slice('Data.h5','X',[1]) 
 # dp.show_feature_maps(D1)
