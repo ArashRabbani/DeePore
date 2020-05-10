@@ -3,18 +3,17 @@ import glob
 import numpy as np
 import p,px
 import os
-try:
-    os.remove('Data.h5')
-except:
-    pass
+
 
 Path_complete='..\..\..\BigData\DeePore\DeePore_Dataset.h5'
+Path_compact='Data\DeePore_Compact_Data.h5'
+# dp.create_compact_dataset(Path_complete,Path_compact)
 
-Path_compact='Data.h5'
-dp.create_compact_dataset(Path_complete,Path_compact)
-D1=px.readh5slice('Data.h5','X',[1]) 
-dp.show_feature_maps(D1)
-D1=px.readh5slice('Data.h5','Y',[1]) 
+
+
+# D1=px.readh5slice('Data.h5','X',[1]) 
+# dp.show_feature_maps(D1)
+# D1=px.readh5slice('Data.h5','Y',[1]) 
 # a=0
 # import os
 # try:
