@@ -77,6 +77,7 @@ def prep(Data):
 #            D=int(y[1]>120)+int(y[4]>1.7)
 #            D=int(y[0]<1e-4)+int(y[2]<1e-5)
 #            D=int(y[14]>.7)
+            # D=D+int(np.sum(np.isnan(y)))
             if D>0:
                 pass
             else:
