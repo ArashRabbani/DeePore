@@ -5,10 +5,7 @@ from tensorflow.keras.layers import Conv2D, Input, MaxPooling2D
 from tensorflow.keras.models import Model
 import os, sys
 import matplotlib.pyplot as plt
-try:
-    tf.compat.v1.disable_v2_behavior()
-except:
-    pass
+
 def check_get(url,File_Name): 
     from urllib.request import urlretrieve   
     def download_callback(blocknum, blocksize, totalsize):
@@ -128,7 +125,11 @@ def hdf_shapes(Name,Fields):
             Shape[I]=f[Fields[I]].shape  
     return Shape                
 def trainmodel(DataName,TrainList,EvalList,MIN,MAX,retrain=0):
-    global CB; CB=[]
+    if retrain !=0:
+        try:
+            tf.compat.v1.disable_v2_behavior()
+        except:
+            pass
     SaveName='Model.h5';
     INPUT_SHAPE,OUTPUT_SHAPE =hdf_shapes(DataName,('X','Y')); 
     model=DeePore1(INPUT_SHAPE,OUTPUT_SHAPE)
@@ -139,6 +140,7 @@ def trainmodel(DataName,TrainList,EvalList,MIN,MAX,retrain=0):
         model.save_weights(SaveName);
     else:
         model.load_weights(SaveName)
+    
     return model 
 def splitdata(List):
     N=np.int32([0,len(List)*.64,len(List)*.8,len(List)])
@@ -305,6 +307,7 @@ def maxpool2(A):
     B=np.delete(B, range(1, B.shape[1], 2), axis=1)
     return B
 def ecl_distance(A):
+    tf.compat.v1.enable_v2_behavior()
     B=np.zeros((A.shape[0],128,128,3))
     from scipy.ndimage import distance_transform_edt as distance
     for I in range(A.shape[0]):

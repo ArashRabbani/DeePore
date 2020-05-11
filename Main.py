@@ -51,7 +51,7 @@ model=dp.trainmodel(DataName,TrainList,EvalList,MIN,MAX,retrain=0)
 
 # B=dp.ecl_distance(A)
 # dp.show_feature_maps(B)
-A=dp.readsampledata(FileName="A.mat")
+A=dp.readsampledata(FileName="Data/A.mat")
 B=dp.ecl_distance(A)
 single_values=dp.predict(model,B,MIN,MAX,res=4.8)
 # import p,px
