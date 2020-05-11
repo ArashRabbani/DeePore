@@ -8,14 +8,9 @@ DataName=Path_compact
 List,MIN,MAX=dp.prep(DataName)
 TrainList, EvalList, TestList = dp.splitdata(List)
 model=dp.trainmodel(DataName,TrainList,EvalList,MIN,MAX,retrain=0)  
-dp.testmodel(model,DataName,TestList,MIN,MAX)
-# G=dp.gener(50,DataName,TestList,MIN,MAX)
-# L=next(G)
+# dp.testmodel(model,DataName,TestList,MIN,MAX)
 
 
-# Data=DataName
-# import h5py
-# f=h5py.File(Data,'r')
 
 # D1=px.readh5slice('Data.h5','X',[1]) 
 # dp.show_feature_maps(D1)
@@ -56,7 +51,9 @@ dp.testmodel(model,DataName,TestList,MIN,MAX)
 
 # B=dp.ecl_distance(A)
 # dp.show_feature_maps(B)
-# single_values=dp.predict(model,B,MIN,MAX,res=4.8)
+A=dp.readsampledata(FileName="A.mat")
+B=dp.ecl_distance(A)
+single_values=dp.predict(model,B,MIN,MAX,res=4.8)
 # import p,px
 # px.im(B[0,:,:,1])
 # # px.im(A[0,:,:,1])
