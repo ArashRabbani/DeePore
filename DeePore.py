@@ -258,7 +258,7 @@ def writeh5slice(A,FileName,FieldName,Shape):
         print('writing slice '+ str(Slice))
     except:
         with h5py.File(FileName, "a") as f:
-            f.create_dataset(FieldName, Shape0,maxshape=maxshape, chunks=True,dtype=A.dtype,compression="gzip", compression_opts=2)
+            f.create_dataset(FieldName, Shape0,maxshape=maxshape, chunks=True,dtype=A.dtype,compression="gzip", compression_opts=5)
             f[FieldName][0,...]=A   
 def normalize(A):
     A_min = np.min(A)
