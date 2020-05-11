@@ -288,11 +288,19 @@ def predict(model,A,MIN,MAX,res=5):
         val[6]=val[6]*res
         val[7]=val[7]*res
         val[8]=val[8]*res
-        # val[18]=val[18]/res
-        # val[25]=val[25]*res*res
-        # val[6,7,8,19,20,21,22,23,24,29]=val[6,7,8,19,20,21,22,23,24,29]*res
+        d=100
+        output=val
+        for I in range(15):
+            func=y[I*d+15:(I+1)*d+15]
+            if I in [19,20,21,22,23,24,29]:
+                func=func*res
+            if I in [18]:
+                func=func/res
+            if I in [25]:
+                func=func*res*res                
+            output=np.append(output,func)
         # val=[VarNames,val]
-    return val
+    return output
     # plt.imsave('Data/Sample.png',np.squeeze(A[:,:,128]),cmap='gray')
     # plt.imsave('Data/Sample.jpg',np.squeeze(A[:,:,128]),cmap='gray')
 def maxpool2(A):
