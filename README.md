@@ -4,9 +4,10 @@ DeePore is a deep learning workflow for rapid estimation of a wide range of poro
 
 The present repository is corresponded to this published paper: 
 
-Arash Rabbani, Reza Shams and Masoud Babaei, DeePore: a deep learning workflow for rapid and comprehensive characterization of porous materials, arXiv:2005.03759v1 [cond-mat.mtrl-sci] 3 May 2020
-<br/>[Link to paper](https://arxiv.org/abs/2005.03759)
+Arash Rabbani, Reza Shams and Masoud Babaei, DeePore: a deep learning workflow for rapid and comprehensive characterization of porous materials, arXiv:2005.03759v1 [cond-mat.mtrl-sci], 3 May 2020.
+<br/>[Link to the paper](https://arxiv.org/abs/2005.03759)
 
+<br/> Here, is a visual summary of data workflow in DeePore to make the ground truth data and train the model: 
 <br/>[![Image](images/Summary.jpg)]()
 
 Figure 1. DeePore data workflow for generating the ground truth data and training the CNN based on that, original binary
