@@ -370,9 +370,9 @@ def prettyresult(vals,FileName,units='um'):
         VarNames = list(f)
     b=np.round(vals[0:15],7)
     f = open(FileName, 'w')
-    f.write('DeePore output results'+'\n')
+    f.write('DeePore output results including 15 single-value' +'\n'+ 'paramters, 4 functions and 11 distributions'+'\n')
     f.write('_' * 50+'\n')
-    f.write(' ### Single-value parameters ###'+'\n')
+    f.write('        ### Single-value parameters ###'+'\n')
     f.write('_' * 50+'\n')
     f.write('\n')
     t='Properties'
@@ -388,7 +388,7 @@ def prettyresult(vals,FileName,units='um'):
         f.write(results)
     f.write('\n')
     f.write('_' * 50+'\n')
-    f.write(' ### Functions and distributions ###'+'\n')
+    f.write('       ### Functions and distributions ###'+'\n')
     f.write('_' * 50+'\n')
     
     for I in range(15):

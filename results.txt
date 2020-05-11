@@ -1,6 +1,7 @@
- DeePore output results
+DeePore output results including 15 single-value
+paramters, 4 functions and 11 distributions
 __________________________________________________
- ### Single-value parameters ###
+        ### Single-value parameters ###
 __________________________________________________
 
 Properties                              Value
@@ -22,9 +23,8 @@ Average Grain Radius (ratio)            9.4280584
 Relative Young Module (ratio)           0.3019229
 
 __________________________________________________
- ### Functions and distributions ###
+       ### Functions and distributions ###
 __________________________________________________
-
 
 
 # Leveret J Function (ratio)
