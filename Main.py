@@ -7,7 +7,7 @@ Path_compact='Data\DeePore_Compact_Data.h5'
 DataName=Path_compact
 List,MIN,MAX=dp.prep(DataName)
 TrainList, EvalList, TestList = dp.splitdata(List)
-model=dp.trainmodel(DataName,TrainList,EvalList,MIN,MAX,retrain=1)  
+model=dp.trainmodel(DataName,TrainList,EvalList,MIN,MAX,retrain=0)  
 dp.testmodel(model,DataName,TestList,MIN,MAX)
 # G=dp.gener(50,DataName,TestList,MIN,MAX)
 # L=next(G)
