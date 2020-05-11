@@ -392,7 +392,7 @@ def prettyresult(vals,FileName,units='um'):
             t=t.replace('px','um')
         f.write('\n')
         f.write('-' * 50+'\n')
-        f.write('# '+t)    
+        f.write('# '+t+'\n')    
         f.write('-' * 50+'\n')
         xlabel='Cumulative probability'
         if I+15 in [15,16,17]:
@@ -406,9 +406,9 @@ def prettyresult(vals,FileName,units='um'):
         shift=I*100+15
         for J in range(100):
 
-            t=str(J*.01)
+            t=str(np.round(J*.01+.01,2))
             spa=' ' * (40-len(t))
-            f.write(t+spa+str(vals[J+shift])+'\n')
+            f.write(t+spa+str(np.round(vals[J+shift],7))+'\n')
     
     f.close()
 def readh5slice(FileName,FieldName,Slices):
