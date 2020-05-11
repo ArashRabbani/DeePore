@@ -394,9 +394,15 @@ def prettyresult(vals,FileName,units='um'):
         f.write('-' * 50+'\n')
         f.write('# '+t)    
         f.write('-' * 50+'\n')
-        t='Wetting-sat (Sw)'
-        spa=' ' * (40-len(t))
-        f.write(t+spa+'Value'+'\n')
+        xlabel='Cumulative probability'
+        if I+15 in [15,16,17]:
+            xlabel='Wetting-sat (Sw)'
+        if I+15 in [18]:
+            xlabel='lag (px)'
+            if units=='um':
+                xlabel=xlabel.replace('px','um')
+        spa=' ' * (40-len(xlabel))
+        f.write(xlabel+spa+'Value'+'\n')
         shift=I*100+15
         for J in range(100):
 
