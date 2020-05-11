@@ -7,6 +7,7 @@ try:
     os.remove('Data.h5')
 except:
     pass
+1
 Path_complete='..\..\..\BigData\DeePore\DeePore_Dataset.h5'
 
 Path_compact='Data.h5'
