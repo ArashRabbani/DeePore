@@ -55,6 +55,7 @@ A=dp.readsampledata(FileName="Data/Sample_large.mat")
 B=dp.ecl_distance(A)
 all_preds=dp.predict(model,B,MIN,MAX,res=4.8)
 dp.prettyresult(all_preds,'results.txt')
+
 # import p,px
 # px.im(B[0,:,:,1])
 # # px.im(A[0,:,:,1])
