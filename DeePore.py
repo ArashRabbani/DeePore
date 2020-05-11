@@ -387,18 +387,22 @@ def prettyresult(vals,FileName,units='um'):
         
     
     for I in range(15):
+        t=VarNames[I+15].strip()
+        if units=='um':
+            t=t.replace('px','um')
         f.write('\n')
         f.write('-' * 50+'\n')
-        f.write('# '+VarNames[I+15])    
+        f.write('# '+t)    
         f.write('-' * 50+'\n')
         t='Wetting-sat (Sw)'
         spa=' ' * (40-len(t))
         f.write(t+spa+'Value'+'\n')
-        for J in range(10):
+        shift=I*100+15
+        for J in range(100):
 
-            t=str(J*.1)
+            t=str(J*.01)
             spa=' ' * (40-len(t))
-            f.write(t+spa+str(vals[J])+'\n')
+            f.write(t+spa+str(vals[J+shift])+'\n')
     
     f.close()
 def readh5slice(FileName,FieldName,Slices):
