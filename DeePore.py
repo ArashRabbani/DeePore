@@ -365,21 +365,22 @@ def makeblocks(SS,n=None,w=None,ov=0):
         HI.append(hi)
         LO.append(lo)        
     return LO,HI       
-def prettyresult(FileName):
-    import numpy as np
-    vals=np.random.rand(1515)
+def prettyresult(vals,FileName,units='um'):
+    # import numpy as np
+    # vals=np.random.rand(1515)
     with open('VarNames.txt') as f:
         VarNames = list(f)
     # a=VarNames
     b=np.round(vals[0:15],7)
-    f = open('file.txt', 'w')
+    f = open(FileName, 'w')
     t='Properties'
     spa=' ' * (40-len(t))
     f.write(t+spa+'Value'+'\n')
     f.write('-' * 50+'\n')
     for i in range(len(b)):
         t=VarNames[i].strip()
-        # t=t.replace('px','um')
+        if units=='um':
+            t=t.replace('px','um')
         spa=' ' * (40-len(t))
         results=t +spa+str(b[i])+'\n'
         f.write(results)
