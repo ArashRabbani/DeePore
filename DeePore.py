@@ -396,6 +396,7 @@ def create_compact_dataset(Path_complete,Path_compact):
         Y=readh5slice(Path_complete,'Y',[I])
         X=slicevol(X)
         X=ecl_distance(X)
+        X=np.uint8(X*255)
         writeh5slice(X,Path_compact,'X',Shape=[128,128,3])
         writeh5slice(Y,Path_compact,'Y',Shape=[1515,1])
         
