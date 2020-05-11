@@ -180,6 +180,13 @@ def mat2np(Name): # load the MATLAB array as numpy array
     import scipy.io as sio
     B=sio.loadmat(Name)  
     return B['A']    
+def slicevol(A):
+    A=np.squeeze(A)
+    B=np.zeros((1,A.shape[0],A.shape[1],3))
+    B[0,:,:,0]=A[int(A.shape[0]/2),:,:]
+    B[0,:,:,1]=A[:,int(A.shape[1]/2),:]
+    B[0,:,:,2]=A[:,:,int(A.shape[2]/2)]
+    return B
 def readsampledata(FileName='Data/Sample.mat'):
     import os
     import cv2
@@ -383,8 +390,10 @@ def readh5slice(FileName,FieldName,Slices):
          A=f[FieldName][np.sort(Slices),...]
     return A
 def create_compact_dataset(Path_complete,Path_compact):
-    for I in range(12):
+    S=hdf_shapes(Path_complete,['X'])
+    for I in range(S[-1]):
         X=readh5slice(Path_complete,'X',[I])
+        X=slicevol(X)
         X=ecl_distance(X)
         writeh5slice(X,Path_compact,'X',Shape=[128,128,3])
         
