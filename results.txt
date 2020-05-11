@@ -1,3 +1,5 @@
+ ### Single-value parameters ###
+--------------------------------------------------
 Properties                              Value
 --------------------------------------------------
 Absolute Permeability (um2)             1.1405379
@@ -15,11 +17,15 @@ Pore Sphericity (ratio)                 0.7200877
 Grain Sphericity (ratio)                0.8562742
 Average Grain Radius (ratio)            9.4280584
 Relative Young Module (ratio)           0.3019229
+--------------------------------------------------
+ ### Functions and distributions ###
+--------------------------------------------------
 
 --------------------------------------------------
 # Leveret J Function (ratio)
 --------------------------------------------------
 Wetting-sat (Sw)                        Value
+--------------------------------------------------
 0.01                                    0.8845307
 0.02                                    0.8536044
 0.03                                    0.7665318
@@ -125,6 +131,7 @@ Wetting-sat (Sw)                        Value
 # Wetting Relative Permeability (fraction)
 --------------------------------------------------
 Wetting-sat (Sw)                        Value
+--------------------------------------------------
 0.01                                    0.0001682
 0.02                                    0.0001756
 0.03                                    0.000172
@@ -230,6 +237,7 @@ Wetting-sat (Sw)                        Value
 # Non-Wetting Relative Permeability (fraction)
 --------------------------------------------------
 Wetting-sat (Sw)                        Value
+--------------------------------------------------
 0.01                                    0.9998357
 0.02                                    0.9973688
 0.03                                    0.9940597
@@ -335,6 +343,7 @@ Wetting-sat (Sw)                        Value
 # Two-point Correlation Function (1/um)
 --------------------------------------------------
 lag (um)                                Value
+--------------------------------------------------
 0.01                                    0.2308402
 0.02                                    0.2225157
 0.03                                    0.2258095
@@ -440,6 +449,7 @@ lag (um)                                Value
 # Pore Radius Distribution (um)
 --------------------------------------------------
 Cumulative probability                  Value
+--------------------------------------------------
 0.01                                    2.3088154
 0.02                                    2.3550095
 0.03                                    2.7457438
@@ -545,6 +555,7 @@ Cumulative probability                  Value
 # Throat Radius Distribution (um)
 --------------------------------------------------
 Cumulative probability                  Value
+--------------------------------------------------
 0.01                                    0.3963292
 0.02                                    0.5099242
 0.03                                    0.6250045
@@ -650,6 +661,7 @@ Cumulative probability                  Value
 # Throat Lenght Distribution (um)
 --------------------------------------------------
 Cumulative probability                  Value
+--------------------------------------------------
 0.01                                    6.6467978
 0.02                                    7.3660367
 0.03                                    8.1901261
@@ -755,6 +767,7 @@ Cumulative probability                  Value
 # Pore Inscribed Radius Distribution (um)
 --------------------------------------------------
 Cumulative probability                  Value
+--------------------------------------------------
 0.01                                    1.7967216
 0.02                                    1.8638675
 0.03                                    1.8896679
@@ -860,6 +873,7 @@ Cumulative probability                  Value
 # Throat Inscribed Radius Distribution (um)
 --------------------------------------------------
 Cumulative probability                  Value
+--------------------------------------------------
 0.01                                    1.0055339
 0.02                                    1.0093574
 0.03                                    1.0099168
@@ -965,6 +979,7 @@ Cumulative probability                  Value
 # Throat Average Distance (um)
 --------------------------------------------------
 Cumulative probability                  Value
+--------------------------------------------------
 0.01                                    1.0075098
 0.02                                    1.0047358
 0.03                                    1.0055054
@@ -1070,6 +1085,7 @@ Cumulative probability                  Value
 # Throat Permeability Distribution (um2)
 --------------------------------------------------
 Cumulative probability                  Value
+--------------------------------------------------
 0.01                                    0.2785349
 0.02                                    0.2612576
 0.03                                    0.286929
@@ -1175,6 +1191,7 @@ Cumulative probability                  Value
 # Coordination Number Distribution
 --------------------------------------------------
 Cumulative probability                  Value
+--------------------------------------------------
 0.01                                    0.2973437
 0.02                                    0.8053205
 0.03                                    0.8787913
@@ -1280,6 +1297,7 @@ Cumulative probability                  Value
 # Pore Sphericity Distribution (ratio)
 --------------------------------------------------
 Cumulative probability                  Value
+--------------------------------------------------
 0.01                                    0.4880884
 0.02                                    0.4999259
 0.03                                    0.5297761
@@ -1385,6 +1403,7 @@ Cumulative probability                  Value
 # Grain Sphericity Distribution (ratio)
 --------------------------------------------------
 Cumulative probability                  Value
+--------------------------------------------------
 0.01                                    0.5951138
 0.02                                    0.6295213
 0.03                                    0.6381708
@@ -1490,6 +1509,7 @@ Cumulative probability                  Value
 # Grain Radius Distribution (um)
 --------------------------------------------------
 Cumulative probability                  Value
+--------------------------------------------------
 0.01                                    3.3229847
 0.02                                    3.6988117
 0.03                                    3.9040472

@@ -366,13 +366,12 @@ def makeblocks(SS,n=None,w=None,ov=0):
         LO.append(lo)        
     return LO,HI       
 def prettyresult(vals,FileName,units='um'):
-    # import numpy as np
-    # vals=np.random.rand(1515)
     with open('VarNames.txt') as f:
         VarNames = list(f)
-    # a=VarNames
     b=np.round(vals[0:15],7)
     f = open(FileName, 'w')
+    f.write(' ### Single-value parameters ###'+'\n')
+    f.write('-' * 50+'\n')
     t='Properties'
     spa=' ' * (40-len(t))
     f.write(t+spa+'Value'+'\n')
@@ -385,7 +384,9 @@ def prettyresult(vals,FileName,units='um'):
         results=t +spa+str(b[i])+'\n'
         f.write(results)
         
-    
+    f.write('-' * 50+'\n')
+    f.write(' ### Functions and distributions ###'+'\n')
+    f.write('-' * 50+'\n')
     for I in range(15):
         t=VarNames[I+15].strip()
         if units=='um':
@@ -403,6 +404,7 @@ def prettyresult(vals,FileName,units='um'):
                 xlabel=xlabel.replace('px','um')
         spa=' ' * (40-len(xlabel))
         f.write(xlabel+spa+'Value'+'\n')
+        f.write('-' * 50+'\n')
         shift=I*100+15
         for J in range(100):
 
