@@ -391,11 +391,13 @@ def readh5slice(FileName,FieldName,Slices):
     return A
 def create_compact_dataset(Path_complete,Path_compact):
     S=hdf_shapes(Path_complete,['X'])
-    for I in range(S[-1]):
+    for I in range(S[0][0]):
         X=readh5slice(Path_complete,'X',[I])
+        Y=readh5slice(Path_complete,'Y',[I])
         X=slicevol(X)
         X=ecl_distance(X)
         writeh5slice(X,Path_compact,'X',Shape=[128,128,3])
+        writeh5slice(Y,Path_compact,'Y',Shape=[1515,1])
         
     
     
