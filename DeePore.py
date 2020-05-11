@@ -375,5 +375,18 @@ def prettyresult(FileName):
             f.write(t+spa+str(vals[J])+'\n')
     
     f.close()
+def readh5slice(FileName,FieldName,Slices):
+    # example: B=px.readh5slice('test3.h5','X',[1,2])
+    import numpy as np
+    import h5py
+    with h5py.File(FileName, "r") as f:
+         A=f[FieldName][np.sort(Slices),...]
+    return A
+def create_compact_dataset(Path_complete,Path_compact):
+    for I in range(12):
+        X=readh5slice(Path_complete,'X',[I])
+        X=ecl_distance(X)
+        writeh5slice(X,Path_compact,'X',Shape=[128,128,3])
+        
     
     

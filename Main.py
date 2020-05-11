@@ -2,7 +2,15 @@ import DeePore as dp
 import glob
 import numpy as np
 import p,px
-path=r"C:\Users\rabar\Dropbox (The University of Manchester)\AR1\BigData\DeePore\DB256NPZ\*.npz";
+import os
+try:
+    os.remove('Data.h5')
+except:
+    pass
+Path_complete='..\..\BigData\DeePore\DeePore_Dataset.h5'
+Path_compact='Data.h5'
+dp.create_compact_dataset(Path_complete,Path_compact)
+
 a=0
 import os
 try:
