@@ -294,7 +294,7 @@ def predict(model,A,MIN,MAX,res=5):
         # val=[VarNames,val]
     return val
     # plt.imsave('Data/Sample.png',np.squeeze(A[:,:,128]),cmap='gray')
-    plt.imsave('Data/Sample.jpg',np.squeeze(A[:,:,128]),cmap='gray')
+    # plt.imsave('Data/Sample.jpg',np.squeeze(A[:,:,128]),cmap='gray')
 def maxpool2(A):
     from scipy.ndimage.filters import maximum_filter
     # C=np.zeros((A.shape[0]+1,A.shape[1]+1))
