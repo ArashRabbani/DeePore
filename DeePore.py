@@ -370,8 +370,11 @@ def prettyresult(vals,FileName,units='um'):
         VarNames = list(f)
     b=np.round(vals[0:15],7)
     f = open(FileName, 'w')
+    f.write('DeePore output results'+'\n')
+    f.write('_' * 50+'\n')
     f.write(' ### Single-value parameters ###'+'\n')
-    f.write('-' * 50+'\n')
+    f.write('_' * 50+'\n')
+    f.write('\n')
     t='Properties'
     spa=' ' * (40-len(t))
     f.write(t+spa+'Value'+'\n')
@@ -383,16 +386,17 @@ def prettyresult(vals,FileName,units='um'):
         spa=' ' * (40-len(t))
         results=t +spa+str(b[i])+'\n'
         f.write(results)
-        
-    f.write('-' * 50+'\n')
+    f.write('\n')
+    f.write('_' * 50+'\n')
     f.write(' ### Functions and distributions ###'+'\n')
-    f.write('-' * 50+'\n')
+    f.write('_' * 50+'\n')
+    
     for I in range(15):
         t=VarNames[I+15].strip()
         if units=='um':
             t=t.replace('px','um')
         f.write('\n')
-        f.write('-' * 50+'\n')
+        f.write('\n')
         f.write('# '+t+'\n')    
         f.write('-' * 50+'\n')
         xlabel='Cumulative probability'
