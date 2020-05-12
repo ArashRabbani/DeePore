@@ -2,8 +2,11 @@ import DeePore as dp
 
 
 Path_compact='Data\DeePore_Compact_Data.h5'
-# Path_complete='..\..\..\BigData\DeePore\DeePore_Dataset.h5'
+Path_complete='..\..\..\BigData\DeePore\DeePore_Dataset.h5'
 # dp.create_compact_dataset(Path_complete,Path_compact)
+
+dp.check_get('https://zenodo.org/record/3820900/files/DeePore_Dataset.h5?download=1',Path_complete)  
+
 dp.check_get('https://zenodo.org/record/3820900/files/DeePore_Compact_Data.h5?download=1',Path_compact)  
 
 DataName=Path_compact
@@ -31,8 +34,6 @@ model=dp.trainmodel(DataName,TrainList,EvalList,MIN,MAX,retrain=0)
 #     dp.writeh5slice(np.reshape(C,(1,1515,1)),'Data.h5','Y',Shape=[1515,1])
 #     a=a+1
     
-
-
 
 # D1=px.readh5slice('Data.h5','X',[1])  
 # D2=px.readh5slice('Data.h5','Y',[1])  
