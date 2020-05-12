@@ -365,7 +365,7 @@ def makeblocks(SS,n=None,w=None,ov=0):
         HI.append(hi)
         LO.append(lo)        
     return LO,HI       
-def prettyresult(vals,FileName,units='um'):
+def prettyresult(vals,FileName,units='um',verbose=1):
     with open('VarNames.txt') as f:
         VarNames = list(f)
     b=np.round(vals[0:15],7)
@@ -417,6 +417,19 @@ def prettyresult(vals,FileName,units='um'):
             f.write(t+spa+str(np.round(vals[J+shift],7))+'\n')
     
     f.close()
+    a=0
+    if verbose:
+        print('\n')
+        with open(FileName,"r") as f:
+            for line in f:
+                print(line)
+                a=a+1
+                if a>23:
+                    print('-' * 50+'\n')
+                    print('To see all the results please refer to this file: \n')
+                    print(FileName+'\n')
+                    break
+                
 def readh5slice(FileName,FieldName,Slices):
     # example: B=px.readh5slice('test3.h5','X',[1,2])
     import numpy as np

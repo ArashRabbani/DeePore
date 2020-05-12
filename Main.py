@@ -4,6 +4,8 @@ import DeePore as dp
 Path_compact='Data\DeePore_Compact_Data.h5'
 # Path_complete='..\..\..\BigData\DeePore\DeePore_Dataset.h5'
 # dp.create_compact_dataset(Path_complete,Path_compact)
+dp.check_get('https://zenodo.org/record/3820900/files/DeePore_Compact_Data.h5?download=1',Path_compact)  
+
 DataName=Path_compact
 List,MIN,MAX=dp.prep(DataName)
 TrainList, EvalList, TestList = dp.splitdata(List)
@@ -37,7 +39,7 @@ model=dp.trainmodel(DataName,TrainList,EvalList,MIN,MAX,retrain=0)
 
 # D=px.readh5slice('Data/DeePore_Compact_Data.h5','Y',[1])    
 # DataName='Data/DeePore_Compact_Data.h5'
-# dp.check_get('https://www.linktodata',DataName)               
+# dp.check_get('https://zenodo.org/record/3820900/files/DeePore_Compact_Data.h5?download=1','')               
 # List,MIN,MAX=dp.prep(DataName)
 # TrainList, EvalList, TestList = dp.splitdata(List)
 # model=dp.trainmodel(DataName,TrainList,EvalList,MIN,MAX,retrain=0)  
