@@ -140,8 +140,7 @@ def testmodel(model,DataName,TestList):
     y=L[1]
     y2=model.predict(L[0])
     print('\n# Evaluate on '+ str(TestList.shape[0]) + ' test data')
-    results=model.evaluate(x,y,batch_size=50)
-    print('test loss, test acc:', results)
+    model.evaluate(x,y,batch_size=50)
     #  Denormalize the predictions
     MIN=np.reshape(MIN,(1,y.shape[1]))
     MAX=np.reshape(MAX,(1,y.shape[1]))
