@@ -2,9 +2,11 @@
 __pycache__/
 *.py[cod]
 *$py.class
+BK/
 Data/DeePore_Compact_Data.h5
 Data.h5
 Main.bat
+Main.py
 # C extensions
 *.so
 

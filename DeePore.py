@@ -5,9 +5,12 @@ from tensorflow.keras.layers import Conv2D, Input, MaxPooling2D
 from tensorflow.keras.models import Model
 import os, sys
 import matplotlib.pyplot as plt
+from urllib.request import urlretrieve
+import scipy.io as sio
+import cv2
+from scipy.ndimage import distance_transform_edt as distance
 
 def check_get(url,File_Name): 
-    from urllib.request import urlretrieve   
     def download_callback(blocknum, blocksize, totalsize):
         readsofar = blocknum * blocksize
         if totalsize > 0:
@@ -26,24 +29,7 @@ def check_get(url,File_Name):
             urlretrieve(url,File_Name,download_callback)   
     else:
         print('File "' +File_Name +'" is detected on your machine.'  )
-def makemap(A):
-    # A is a binary 3D array with zero as void space and 1 as solid space
-    import skimage
-    import scipy.ndimage as ndi
-    A1=np.squeeze(A[:,:,int(A.shape[2]/2)])
-    A2=np.squeeze(A[:,int(A.shape[1]/2),:])
-    A3=np.squeeze(A[int(A.shape[0]/2),:,:])
-    A1 = ndi.distance_transform_edt(1-A1)
-    A2 = ndi.distance_transform_edt(1-A2)
-    A3 = ndi.distance_transform_edt(1-A3)
-    A1 = A1/np.max(A1)
-    A2 = A2/np.max(A2)
-    A3 = A3/np.max(A3)
-    A1=skimage.measure.block_reduce(A1, (2,2), np.max)
-    A2=skimage.measure.block_reduce(A2, (2,2), np.max)
-    A3=skimage.measure.block_reduce(A3, (2,2), np.max)
-    B=np.uint8(np.stack((A1,A2,A3),axis=2)*255)
-    plt.imshow(B)
+
 def DeePore1(INPUT_SHAPE,OUTPUT_SHAPE):
     # Charactrization of the macroscopic properties of porous material
     inputs = Input(INPUT_SHAPE[1:])
@@ -74,10 +60,6 @@ def prep(Data):
             t2=f['Y'][counter,...]
             y=t2.astype('float32')
             D=int(np.sum(np.isnan(y)))+int(np.sum(np.isinf(y)))+int(y[1]>120)+int(y[4]>1.7)+int(y[0]<1e-4)+int(y[2]<1e-5)+int(y[14]>.7)
-#            D=int(y[1]>120)+int(y[4]>1.7)
-#            D=int(y[0]<1e-4)+int(y[2]<1e-5)
-#            D=int(y[14]>.7)
-            # D=D+int(np.sum(np.isnan(y)))
             if D>0:
                 pass
             else:
@@ -92,7 +74,8 @@ def prep(Data):
         for I in range(15):
             MAX[Singles+100*I:Singles+100*(I+1)]=np.max(MAX[Singles+100*I:Singles+100*(I+1)])
             MIN[Singles+100*I:Singles+100*(I+1)]=np.min(MIN[Singles+100*I:Singles+100*(I+1)])
-    return List,MIN,MAX
+    np.save('minmax.npy',[MIN,MAX])
+    return List
 def gener(batch_size,Data,List,MIN,MAX):
     with h5py.File(Data,'r') as f:
         length=len(List)
@@ -103,9 +86,6 @@ def gener(batch_size,Data,List,MIN,MAX):
         while 1:
             t1=f['X'][np.sort(List[batch_size*counter:batch_size*(counter+1)]),...]
             t2=f['Y'][np.sort(List[batch_size*counter:batch_size*(counter+1)]),...]
-
-            # t1=f['X'][List[batch_size*counter:batch_size*(counter+1)],...]
-            # t2=f['Y'][List[batch_size*counter:batch_size*(counter+1)],...]
             X_batch=t1.astype('float32')/255
             y_batch=t2.astype('float32')
             y_batch=np.reshape(y_batch,(y_batch.shape[0],y_batch.shape[1]))
@@ -118,29 +98,36 @@ def gener(batch_size,Data,List,MIN,MAX):
             if counter >= number_of_batches: #restart counter to yeild data in the next epoch as well
                 counter = 0
 def hdf_shapes(Name,Fields):
-    # Fields is tuple of hdf file fields
+    # Fields is list of hdf file fields
     Shape = [[] for _ in range(len(Fields))]
     with h5py.File(Name, 'r') as f:
         for I in range(len(Fields)):
             Shape[I]=f[Fields[I]].shape  
     return Shape                
-def trainmodel(DataName,TrainList,EvalList,MIN,MAX,retrain=0):
+def trainmodel(DataName,TrainList,EvalList,retrain=0,epochs=100,batch_size=100):
     if retrain !=0:
         try:
             tf.compat.v1.disable_v2_behavior()
         except:
             pass
+    MIN,MAX=np.load('minmax.npy')    
     SaveName='Model.h5';
     INPUT_SHAPE,OUTPUT_SHAPE =hdf_shapes(DataName,('X','Y')); 
     model=DeePore1(INPUT_SHAPE,OUTPUT_SHAPE)
-    batch_size=10     
     if retrain:
-        model.fit(gener(batch_size,DataName,TrainList,MIN,MAX), epochs=100,steps_per_epoch=int(len(TrainList)/batch_size),
+        model.fit(gener(batch_size,DataName,TrainList,MIN,MAX), epochs=epochs,steps_per_epoch=int(len(TrainList)/batch_size),
                   validation_data=gener(batch_size*2,DataName,EvalList,MIN,MAX),validation_steps=int(len(EvalList)/batch_size/2))
         model.save_weights(SaveName);
     else:
         model.load_weights(SaveName)
     
+    return model 
+def loadmodel(Path='Model.h5'):
+    MIN,MAX=np.load('minmax.npy')    
+    INPUT_SHAPE=[1,128,128,3];
+    OUTPUT_SHAPE=[1,1515,1];
+    model=DeePore1(INPUT_SHAPE,OUTPUT_SHAPE)
+    model.load_weights(Path)
     return model 
 def splitdata(List):
     N=np.int32([0,len(List)*.64,len(List)*.8,len(List)])
@@ -148,7 +135,8 @@ def splitdata(List):
     EvalList=List[N[1]:N[2]]
     TestList=List[N[2]:N[3]]
     return TrainList, EvalList, TestList
-def testmodel(model,DataName,TestList,MIN,MAX):
+def testmodel(model,DataName,TestList):
+    MIN,MAX=np.load('minmax.npy')  
     G=gener(len(TestList),DataName,TestList,MIN,MAX)
     L=next(G)
     x=L[0]
@@ -186,7 +174,7 @@ def testmodel(model,DataName,TestList,MIN,MAX):
             ax.set_xscale('log')
     plt.savefig('images/Single-value_Features.png')
 def mat2np(Name): # load the MATLAB array as numpy array
-    import scipy.io as sio
+    
     B=sio.loadmat(Name)  
     return B['A']    
 def slicevol(A):
@@ -196,9 +184,8 @@ def slicevol(A):
     B[0,:,:,1]=A[:,int(A.shape[1]/2),:]
     B[0,:,:,2]=A[:,:,int(A.shape[2]/2)]
     return B
-def readsampledata(FileName='Data/Sample.mat'):
-    import os
-    import cv2
+def feedsampledata(FileName='Data/Sample.mat'):
+
     extention=os.path.splitext(FileName)[1]
     if extention=='.mat':
         A=mat2np(FileName)
@@ -238,11 +225,10 @@ def readsampledata(FileName='Data/Sample.mat'):
                 temp=A[LO[0][I]:HI[0][I],LO[1][I]:HI[1][I]]
                 AA[a,...]=np.stack((temp,np.flip(temp,axis=0),np.flip(temp,axis=1)),axis=2)
                 a=a+1
-    return AA
+    B=ecl_distance(AA)
+    return B
 def writeh5slice(A,FileName,FieldName,Shape):
     # example: writeh5slice(A,'test3.h5','X',Shape=[70,70,1])
-    import h5py
-    import numpy as np
     D=len(Shape)  
     if D==2:
          maxshape=(None,Shape[0],Shape[1])
@@ -272,52 +258,39 @@ def writeh5slice(A,FileName,FieldName,Shape):
 def normalize(A):
     A_min = np.min(A)
     return (A-A_min)/(np.max(A)-A_min)        
-def predict(model,A,MIN,MAX,res=5):
+def predict(model,A,res=5):
+    MIN,MAX=np.load('minmax.npy')    
     y=model.predict(A)
     MIN=np.reshape(MIN,(1,y.shape[1]))
     MAX=np.reshape(MAX,(1,y.shape[1]))
     y=np.multiply(y,(MAX-MIN))+MIN
     y[:,0]=10**y[:,0]
     y=np.mean(y,axis=0)
-    with open('VarNames.txt') as f:
-        VarNames = list(f)
-        val=y[0:15]
-        val[0]=val[0]*res*res
-        val[3]=val[3]/res/res/res
-        val[10]=val[10]/res
-        val[6]=val[6]*res
-        val[7]=val[7]*res
-        val[8]=val[8]*res
-        d=100
-        output=val
-        for I in range(15):
-            func=y[I*d+15:(I+1)*d+15]
-            if I in [19,20,21,22,23,24,29]:
-                func=func*res
-            if I in [18]:
-                func=func/res
-            if I in [25]:
-                func=func*res*res                
-            output=np.append(output,func)
-        # val=[VarNames,val]
+
+    val=y[0:15]
+    val[0]=val[0]*res*res
+    val[3]=val[3]/res/res/res
+    val[10]=val[10]/res
+    val[6]=val[6]*res
+    val[7]=val[7]*res
+    val[8]=val[8]*res
+    val[13]=val[13]*res
+    d=100
+    output=val
+    for I in range(15):
+        func=y[I*d+15:(I+1)*d+15]
+        if I in [19,20,21,22,23,24,29]:
+            func=func*res
+        if I in [18]:
+            func=func/res
+        if I in [25]:
+            func=func*res*res                
+        output=np.append(output,func)
     return output
-    # plt.imsave('Data/Sample.png',np.squeeze(A[:,:,128]),cmap='gray')
-    # plt.imsave('Data/Sample.jpg',np.squeeze(A[:,:,128]),cmap='gray')
-def maxpool2(A):
-    from scipy.ndimage.filters import maximum_filter
-    # C=np.zeros((A.shape[0]+1,A.shape[1]+1))
-    # C[1:,1:]=A
-    # A=C
-    print(A)
-    B=maximum_filter(A,footprint=np.ones((2,2)))
-    print(B)
-    B=np.delete(B, range(1, B.shape[0], 2), axis=0)  
-    B=np.delete(B, range(1, B.shape[1], 2), axis=1)
-    return B
 def ecl_distance(A):
     tf.compat.v1.enable_v2_behavior()
     B=np.zeros((A.shape[0],128,128,3))
-    from scipy.ndimage import distance_transform_edt as distance
+    
     for I in range(A.shape[0]):
         for J in range(A.shape[3]):
             t=distance(np.squeeze(A[I,:,:,J]))
@@ -339,7 +312,6 @@ def makeblocks(SS,n=None,w=None,ov=0):
     # w is the fixed width of the blocks and n is the number of blocks
     # if the number be high while w is fixed, blocks start to overlap and ov is between 0 to 1 gets desired overlapping degree
     # example:dp.makeblocks([100,200],w=16,ov=.1)
-    import numpy as np
     HI=[]
     LO=[]
     for S in SS:
@@ -366,6 +338,7 @@ def makeblocks(SS,n=None,w=None,ov=0):
         LO.append(lo)        
     return LO,HI       
 def prettyresult(vals,FileName,units='um',verbose=1):
+    vals=np.squeeze(vals)
     with open('VarNames.txt') as f:
         VarNames = list(f)
     b=np.round(vals[0:15],7)
@@ -392,6 +365,7 @@ def prettyresult(vals,FileName,units='um',verbose=1):
     f.write('_' * 50+'\n')
     
     for I in range(15):
+        multiplier=1
         t=VarNames[I+15].strip()
         if units=='um':
             t=t.replace('px','um')
@@ -404,15 +378,14 @@ def prettyresult(vals,FileName,units='um',verbose=1):
             xlabel='Wetting-sat (Sw)'
         if I+15 in [18]:
             xlabel='lag (px)'
-            if units=='um':
-                xlabel=xlabel.replace('px','um')
+            multiplier=50
         spa=' ' * (40-len(xlabel))
         f.write(xlabel+spa+'Value'+'\n')
         f.write('-' * 50+'\n')
         shift=I*100+15
         for J in range(100):
 
-            t=str(np.round(J*.01+.01,2))
+            t=str(np.round((J*.01+.01)*multiplier,2))
             spa=' ' * (40-len(t))
             f.write(t+spa+str(np.round(vals[J+shift],7))+'\n')
     
@@ -432,8 +405,6 @@ def prettyresult(vals,FileName,units='um',verbose=1):
                 
 def readh5slice(FileName,FieldName,Slices):
     # example: B=px.readh5slice('test3.h5','X',[1,2])
-    import numpy as np
-    import h5py
     with h5py.File(FileName, "r") as f:
          A=f[FieldName][np.sort(Slices),...]
     return A
@@ -447,6 +418,21 @@ def create_compact_dataset(Path_complete,Path_compact):
         X=np.uint8(X*255)
         writeh5slice(X,Path_compact,'X',Shape=[128,128,3])
         writeh5slice(Y,Path_compact,'Y',Shape=[1515,1])
-        
+def showentry(A):
+    """shows 3 slices of a volume data """
+    A=np.squeeze(A)
+    plt.figure(num=None, figsize=(10, 4), dpi=80, facecolor='w', edgecolor='k')
+    # CM=plt.cm.jet
+    # CM=plt.cm.plasma
+    CM=plt.cm.viridis
+    ax1=plt.subplot(1,3,1); plt.axis('off'); ax1.set_title('X mid-slice')
+    plt.imshow(np.squeeze(A[np.int(A.shape[0]/2), :,:]), cmap=CM, interpolation='nearest')
+    # plt.colorbar(orientation="horizontal")
+    ax2=plt.subplot(1,3,2); plt.axis('off'); ax2.set_title('Y mid-slice')
+    plt.imshow(np.squeeze(A[:,np.int(A.shape[1]/2), :]), cmap=CM, interpolation='nearest')
+    # plt.colorbar(orientation="horizontal")
+    ax3=plt.subplot(1,3,3); plt.axis('off'); ax3.set_title('Z mid-slice'); 
+    plt.imshow(np.squeeze(A[:,:,np.int(A.shape[2]/2)]), cmap=CM, interpolation='nearest')
+    # plt.colorbar(orientation="horizontal")        
     
     

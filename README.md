@@ -7,6 +7,7 @@ The present repository is corresponded to this published paper:
 Arash Rabbani, Reza Shams and Masoud Babaei, DeePore: a deep learning workflow for rapid and comprehensive characterization of porous materials, arXiv:2005.03759v1 [cond-mat.mtrl-sci], 3 May 2020.
 <br/>[Link to the paper](https://arxiv.org/abs/2005.03759)
 
+The required packages to use this repo are: 'numpy', 'scipy', 'h5py', 'tensorflow', 'matplotlib', 'cv2', and 'urllib'. I recommend to use Anaconda which has all these packages installed except cv2 and tensorflow of which you can easily install from pip.
 <br/> Here, is a visual summary of data workflow in DeePore to make the ground truth data and train the model: 
 <br/>[![Image](images/Summary.jpg)]()
 

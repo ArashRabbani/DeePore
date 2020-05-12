@@ -11,7 +11,7 @@ Pore to Throat Aspect ratio
 Specific Surface (1/px)
 Pore Sphericity (ratio)
 Grain Sphericity (ratio)
-Average Grain Radius (ratio)
+Average Grain Radius (px)
 Relative Young Module (ratio)
 Leveret J Function (ratio)
 Wetting Relative Permeability (fraction)
