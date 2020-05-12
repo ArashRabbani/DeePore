@@ -55,10 +55,11 @@ The output of this model is an array with 1515 elements that are described in th
 |    1416 - 1515   |        Grain Radius Distribution (px)        |
 
 ## Dataset of 17700 semi-realistic porous material images
-You can download the whole data set with extracted properties of porous material images from this [Link](https://zenodo.org/record/3820900#.Xrnpr2hKjDc)
-However, if you run the codes, it will download it automatically if you wanted to, and it will skip if you have already downloaded the dataset.
+You can download the whole data set with extracted properties of porous material images from this [Link](https://zenodo.org/record/3820900#.Xrnpr2hKjDc).
+However, if you run the codes, file will be downloaded automatically if you wish, and it will skip downloading if you have already downloaded the dataset.
 
 Here are 1500 of them to see how textures look like:
+<br />
 <br />
 [![Image](images/vid1.jpg)](https://www.youtube.com/watch?v=bViDVbmjvK4)
 
