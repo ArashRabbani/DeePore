@@ -94,11 +94,10 @@ A=dp.feedsampledata(FileName="Data/Sample_large.mat")
 
 ```
 
-This is the intial feature maps created for 400 x 400 x 400 voxels MATLAB mat file image of porous sandstone which are used as inputs to the DeePore model to predict an averaged set of physical properties. 
+This is the initial feature maps created for 400 x 400 x 400 voxels MATLAB mat file image of porous sandstone which are used as inputs to the DeePore model to predict an averaged set of physical properties. 
 These maps are created by moving a sliding window of 256 x 256 x 256 voxels over the entire image.
-<br/>[![Image](images/initial_feature_maps.png)]()
+[![Image](images/initial_feature_maps.png)]()
 
-<br/>
 
 And this is part of the predicted data in the text file for mat file image which is a Berea sandstone:
 

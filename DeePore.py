@@ -294,14 +294,14 @@ def ecl_distance(A):
     return B
 def show_feature_maps(A):
     N=np.ceil(np.sqrt(A.shape[0]))
-    plt.figure(figsize=(N*10,N*10))
+    f=plt.figure(figsize=(N*10,N*10))
     for I in range(A.shape[0]):
         plt.subplot(N,N,I+1)
         plt.imshow(np.squeeze(A[I,:,:,:]))  
         plt.axis('off')
     plt.show()
-    plt.draw()
-    plt.savefig('images/initial_feature_maps.png')
+    
+    f.savefig('images/initial_feature_maps.png')
 def makeblocks(SS,n=None,w=None,ov=0):
     # w is the fixed width of the blocks and n is the number of blocks
     # if the number be high while w is fixed, blocks start to overlap and ov is between 0 to 1 gets desired overlapping degree
