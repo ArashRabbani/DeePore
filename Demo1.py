@@ -4,6 +4,7 @@ import DeePore as dp
 # 1. load the trained model
 model=dp.loadmodel()
 # 2. read and transform your data into initial feature maps
+# in this example, the data is a 400 x 400 x 400 binary image in which 0 indicates void and 1 indicates solid space
 A=dp.feedsampledata(FileName="Data/Sample_large.mat")
 # 3. show feature maps (optional)
 dp.show_feature_maps(A)
