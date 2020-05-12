@@ -9,7 +9,6 @@ from urllib.request import urlretrieve
 import scipy.io as sio
 import cv2
 from scipy.ndimage import distance_transform_edt as distance
-
 def check_get(url,File_Name): 
     def download_callback(blocknum, blocksize, totalsize):
         readsofar = blocknum * blocksize
@@ -29,7 +28,6 @@ def check_get(url,File_Name):
             urlretrieve(url,File_Name,download_callback)   
     else:
         print('File "' +File_Name +'" is detected on your machine.'  )
-
 def DeePore1(INPUT_SHAPE,OUTPUT_SHAPE):
     # Charactrization of the macroscopic properties of porous material
     inputs = Input(INPUT_SHAPE[1:])
@@ -120,7 +118,6 @@ def trainmodel(DataName,TrainList,EvalList,retrain=0,epochs=100,batch_size=100):
         model.save_weights(SaveName);
     else:
         model.load_weights(SaveName)
-    
     return model 
 def loadmodel(Path='Model.h5'):
     MIN,MAX=np.load('minmax.npy')    
@@ -174,7 +171,6 @@ def testmodel(model,DataName,TestList):
             ax.set_xscale('log')
     plt.savefig('images/Single-value_Features.png')
 def mat2np(Name): # load the MATLAB array as numpy array
-    
     B=sio.loadmat(Name)  
     return B['A']    
 def slicevol(A):
@@ -185,7 +181,6 @@ def slicevol(A):
     B[0,:,:,2]=A[:,:,int(A.shape[2]/2)]
     return B
 def feedsampledata(FileName='Data/Sample.mat'):
-
     extention=os.path.splitext(FileName)[1]
     if extention=='.mat':
         A=mat2np(FileName)
@@ -266,7 +261,6 @@ def predict(model,A,res=5):
     y=np.multiply(y,(MAX-MIN))+MIN
     y[:,0]=10**y[:,0]
     y=np.mean(y,axis=0)
-
     val=y[0:15]
     val[0]=val[0]*res*res
     val[3]=val[3]/res/res/res
@@ -290,7 +284,6 @@ def predict(model,A,res=5):
 def ecl_distance(A):
     tf.compat.v1.enable_v2_behavior()
     B=np.zeros((A.shape[0],128,128,3))
-    
     for I in range(A.shape[0]):
         for J in range(A.shape[3]):
             t=distance(np.squeeze(A[I,:,:,J]))
@@ -363,7 +356,6 @@ def prettyresult(vals,FileName,units='um',verbose=1):
     f.write('_' * 50+'\n')
     f.write('       ### Functions and distributions ###'+'\n')
     f.write('_' * 50+'\n')
-    
     for I in range(15):
         multiplier=1
         t=VarNames[I+15].strip()
@@ -384,11 +376,9 @@ def prettyresult(vals,FileName,units='um',verbose=1):
         f.write('-' * 50+'\n')
         shift=I*100+15
         for J in range(100):
-
             t=str(np.round((J*.01+.01)*multiplier,2))
             spa=' ' * (40-len(t))
             f.write(t+spa+str(np.round(vals[J+shift],7))+'\n')
-    
     f.close()
     a=0
     if verbose:
@@ -402,7 +392,6 @@ def prettyresult(vals,FileName,units='um',verbose=1):
                     print('To see all the results please refer to this file: \n')
                     print(FileName+'\n')
                     break
-                
 def readh5slice(FileName,FieldName,Slices):
     # example: B=px.readh5slice('test3.h5','X',[1,2])
     with h5py.File(FileName, "r") as f:
@@ -434,5 +423,3 @@ def showentry(A):
     ax3=plt.subplot(1,3,3); plt.axis('off'); ax3.set_title('Z mid-slice'); 
     plt.imshow(np.squeeze(A[:,:,np.int(A.shape[2]/2)]), cmap=CM, interpolation='nearest')
     # plt.colorbar(orientation="horizontal")        
-    
-    

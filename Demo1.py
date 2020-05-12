@@ -1,8 +1,6 @@
 import DeePore as dp
-
 # Quick start: 
 # Feed your porous material image to see its properties predicted 
-
 # 1. load the trained model
 model=dp.loadmodel()
 # 2. read and transform your data into initial feature maps

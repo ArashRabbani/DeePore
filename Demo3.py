@@ -12,6 +12,3 @@ dp.showentry(A)
 # 4. show and save the properties of this image which assumed to be the ground truth as text file
 props=dp.readh5slice(Data_complete,'Y',[0])
 dp.prettyresult(props,'sample_gt.txt',units='px')
-
-
-
