@@ -93,9 +93,10 @@ A=dp.feedsampledata(FileName="Data/Sample_large.mat")
 # when the data is loaded and transformed to the initial feature maps using this function, you are good to go and find its properties as shown above.
 
 ```
-This is the intial feature maps created for 400 x 400 x 400 MATLAB mat file image of porous sandstone which are used as inputs to the DeePore model to predict an averaged set of physical properties. These maps are created by moving a sliding window of 256 x 256 x 256 over the entire image.
-[![Image](images/initial_feature_maps.png)]()
 
+This is the intial feature maps created for 400 x 400 x 400 voxels MATLAB mat file image of porous sandstone which are used as inputs to the DeePore model to predict an averaged set of physical properties. 
+These maps are created by moving a sliding window of 256 x 256 x 256 voxels over the entire image.
+<br/>[![Image](images/initial_feature_maps.png)]()
 
 <br/>
 

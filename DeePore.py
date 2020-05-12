@@ -300,6 +300,7 @@ def show_feature_maps(A):
         plt.imshow(np.squeeze(A[I,:,:,:]))  
         plt.axis('off')
     plt.show()
+    plt.draw()
     plt.savefig('images/initial_feature_maps.png')
 def makeblocks(SS,n=None,w=None,ov=0):
     # w is the fixed width of the blocks and n is the number of blocks
