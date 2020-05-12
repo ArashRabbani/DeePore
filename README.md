@@ -64,19 +64,60 @@ Here are 1500 of them to see how textures look like:
 <br />
 <a href="https://www.youtube.com/watch?v=bViDVbmjvK4"><img src="images/vid1.jpg" alt="drawing" width="480"/>
 </a>
-## Example
+## Demo #1
 
 ```python
 import DeePore as dp
-DataName='DeePore_Compact_Data.h5'
-dp.check_get('https://www.linktodata',DataName)               
-List,MIN,MAX=dp.prep(DataName)
-TrainList, EvalList, TestList = dp.splitdata(List)
-model=dp.trainmodel(DataName,TrainList,EvalList,MIN,MAX,retrain=0)  
-#  Now Testing the Model on the test samples
-dp.testmodel(model,DataName,TestList,MIN,MAX)
-
+# Quick start: 
+# Feed your porous material image to see its properties predicted 
+# 1. load the trained model
+model=dp.loadmodel()
+# 2. read and transform your data into initial feature maps
+A=dp.feedsampledata(FileName="Data/Sample_large.mat")
+# 3. show feature maps (optional)
+dp.show_feature_maps(A)
+# 4. predict properties
+all_preds=dp.predict(model,A,res=4.8) # res is the spatial resolution of image in micron/pixel
+# 5. save results into a text file and also print it in console
+dp.prettyresult(all_preds,'results.txt')
 ```
+## Demo #2
+
+```python
+import DeePore as dp
+# Retrain and test the model: 
+# If you want to try you own architecture of neural network or retrain the present one
+# 1. check or download the compact data
+Data_compact='Data\DeePore_Compact_Data.h5'
+dp.check_get('https://zenodo.org/record/3820900/files/DeePore_Compact_Data.h5?download=1',Data_compact) 
+# 2. prepare the dataset by removing outliers and creating list of training, evaluation and test samples
+List=dp.prep(Data_compact)
+TrainList, EvalList, TestList = dp.splitdata(List)
+# 3. retrain the model
+model=dp.trainmodel(Data_compact,TrainList,EvalList,retrain=0,epochs=100,batch_size=100)  
+# 4. test the model
+dp.testmodel(model,Data_compact,TestList)
+```
+
 This is the testing result for around 3000 sample images
 
 [![Image](images/Single-value_Features.png)]()
+
+## Demo #3
+
+```python
+import DeePore as dp
+# Explore the dataset: 
+# If you want to open images of dataset and visualize them
+# 1. check or download the complete dataset 
+Data_complete='Data\DeePore_Dataset.h5'
+Data_complete='..\..\..\BigData\DeePore\DeePore_Dataset.h5'
+dp.check_get('https://zenodo.org/record/3820900/files/DeePore_Dataset.h5?download=1',Data_complete)
+# 2. read the first image out of 17700
+A=dp.readh5slice(Data_complete,'X',[0]) 
+# 3. show mid-slices of the loaded image
+dp.showentry(A)
+# 4. show and save the properties of this image which assumed to be the ground truth as text file
+props=dp.readh5slice(Data_complete,'Y',[0])
+dp.prettyresult(props,'sample_gt.txt',units='px')
+```
