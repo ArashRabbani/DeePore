@@ -8,6 +8,6 @@ dp.check_get('https://zenodo.org/record/3820900/files/DeePore_Compact_Data.h5?do
 List=dp.prep(Data_compact)
 TrainList, EvalList, TestList = dp.splitdata(List)
 # 3. retrain the model
-model=dp.trainmodel(Data_compact,TrainList,EvalList,retrain=1,epochs=100,batch_size=100)  
+model=dp.trainmodel(Data_compact,TrainList,EvalList,retrain=0,epochs=100,batch_size=100)  
 # 4. test the model
 dp.testmodel(model,Data_compact,TestList)
