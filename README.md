@@ -81,6 +81,31 @@ all_preds=dp.predict(model,A,res=4.8) # res is the spatial resolution of image i
 # 5. save results into a text file and also print it in console
 dp.prettyresult(all_preds,'results.txt')
 ```
+And this is part of the predicted data in the text file:
+
+```
+        ### Single-value parameters ###
+__________________________________________________
+
+Properties                              Value
+--------------------------------------------------
+Absolute Permeability (um2)             1.1405379
+Formation Factor (ratio)                14.7386634
+Cementation Factor (ratio)              1.9042206
+pore density (1/um3)                    1.7e-06
+Tortuosity (ratio)                      1.2443834
+Average Coordination Number             4.478728
+Average Throat Radius (um)              15.0556575
+Average Pore Radius (um)                26.9941965
+Average Throat Length (um)              85.5445165
+Pore to Throat Aspect ratio             3.4341114
+Specific Surface (1/um)                 0.0254289
+Pore Sphericity (ratio)                 0.7200877
+Grain Sphericity (ratio)                0.8562742
+Average Grain Radius (um)               45.2546802
+Relative Young Module (ratio)           0.3019229
+```
+
 ## Demo #2
 
 ```python
@@ -121,9 +146,9 @@ props=dp.readh5slice(Data_complete,'Y',[0])
 dp.prettyresult(props,'sample_gt.txt',units='px')
 ```
 Here is the 3 mid-planes of the first 3-D image of the dataset
-[![Image]('images/First_entry.png')]()
+[![Image](images/First_entry.png)]()
 
-And the ground-truth properties from the saved text file:
+And part of the ground-truth properties from the saved text file:
 ```
         ### Single-value parameters ###
 __________________________________________________
