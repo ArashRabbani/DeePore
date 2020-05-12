@@ -62,7 +62,7 @@ Here are 1500 of them to see how textures look like:
 <br />
 <br />
 <a href="https://www.youtube.com/watch?v=bViDVbmjvK4"><img src="images/vid1.jpg" alt="drawing" width="480"/>
-
+</a>
 ## Example
 
 ```python
@@ -77,4 +77,5 @@ dp.testmodel(model,DataName,TestList,MIN,MAX)
 
 ```
 This is the testing result for around 3000 sample images
+
 [![Image](images/Single-value_Features.png)]()

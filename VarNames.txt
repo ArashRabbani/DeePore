@@ -3,7 +3,7 @@ Formation Factor (ratio)
 Cementation Factor (ratio)
 pore density (1/px3)
 Tortuosity (ratio)
-Average Coorination Number
+Average Coordination Number
 Average Throat Radius (px)
 Average Pore Radius (px)
 Average Throat Length (px)
