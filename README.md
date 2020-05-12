@@ -100,7 +100,6 @@ dp.testmodel(model,Data_compact,TestList)
 ```
 
 This is the testing result for around 3000 sample images
-
 [![Image](images/Single-value_Features.png)]()
 
 ## Demo #3
@@ -121,3 +120,30 @@ dp.showentry(A)
 props=dp.readh5slice(Data_complete,'Y',[0])
 dp.prettyresult(props,'sample_gt.txt',units='px')
 ```
+Here is the 3 mid-planes of the first 3-D image of the dataset
+[![Image]('images/First_entry.png')]()
+
+And the ground-truth properties from the saved text file:
+```
+        ### Single-value parameters ###
+__________________________________________________
+
+Properties                              Value
+--------------------------------------------------
+Absolute Permeability (px2)             0.0321214
+Formation Factor (ratio)                16.9433861
+Cementation Factor (ratio)              1.9621598
+pore density (1/px3)                    0.0002908
+Tortuosity (ratio)                      1.2430909
+Average Coordination Number             4.742775
+Average Throat Radius (px)              2.673661
+Average Pore Radius (px)                5.13837
+Average Throat Length (px)              15.4859619
+Pore to Throat Aspect ratio             3.565485
+Specific Surface (1/px)                 0.1543706
+Pore Sphericity (ratio)                 0.6998004
+Grain Sphericity (ratio)                0.8364815
+Average Grain Radius (px)               8.2932272
+Relative Young Module (ratio)           0.3068074
+```
+

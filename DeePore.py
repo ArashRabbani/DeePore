@@ -409,7 +409,7 @@ def create_compact_dataset(Path_complete,Path_compact):
 def showentry(A):
     """shows 3 slices of a volume data """
     A=np.squeeze(A)
-    plt.figure(num=None, figsize=(10, 4), dpi=80, facecolor='w', edgecolor='k')
+    plt.figure(num=None, figsize=(20, 8), dpi=80, facecolor='w', edgecolor='k')
     # CM=plt.cm.jet
     # CM=plt.cm.plasma
     CM=plt.cm.viridis
@@ -422,3 +422,4 @@ def showentry(A):
     ax3=plt.subplot(1,3,3); plt.axis('off'); ax3.set_title('Z mid-slice'); 
     plt.imshow(np.squeeze(A[:,:,np.int(A.shape[2]/2)]), cmap=CM, interpolation='nearest')
     # plt.colorbar(orientation="horizontal")        
+    plt.savefig('images/First_entry.png')

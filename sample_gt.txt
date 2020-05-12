@@ -6,24 +6,16 @@ __________________________________________________
 
 Properties                              Value
 --------------------------------------------------
-Absolute Permeability (px2)             [[ 0.0321214]
- [16.9433861]
- [ 1.9621598]
- ...
- [14.8672009]
- [15.9117661]
- [24.4452744]]
-
-__________________________________________________
-       ### Functions and distributions ###
-__________________________________________________
-
-
-# Leveret J Function (ratio)
---------------------------------------------------
-Wetting-sat (Sw)                        Value
---------------------------------------------------
-Aspect ratio             3.565485
+Absolute Permeability (px2)             0.0321214
+Formation Factor (ratio)                16.9433861
+Cementation Factor (ratio)              1.9621598
+pore density (1/px3)                    0.0002908
+Tortuosity (ratio)                      1.2430909
+Average Coordination Number             4.742775
+Average Throat Radius (px)              2.673661
+Average Pore Radius (px)                5.13837
+Average Throat Length (px)              15.4859619
+Pore to Throat Aspect ratio             3.565485
 Specific Surface (1/px)                 0.1543706
 Pore Sphericity (ratio)                 0.6998004
 Grain Sphericity (ratio)                0.8364815
