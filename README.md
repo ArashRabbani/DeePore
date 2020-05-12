@@ -61,7 +61,7 @@ However, if you run the codes, file will be downloaded automatically if you wish
 Here are 1500 of them to see how textures look like:
 <br />
 <br />
-<div style="text-align:center"><a href="https://www.youtube.com/watch?v=bViDVbmjvK4"><img src="images/vid1.jpg" alt="drawing" width="480"/></div>
+<a href="https://www.youtube.com/watch?v=bViDVbmjvK4"><img src="images/vid1.jpg" alt="drawing" width="480"/>
 
 ## Example
 
