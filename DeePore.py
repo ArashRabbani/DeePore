@@ -25,7 +25,6 @@ def check_get(url,File_Name):
         ans=input('You dont have the file "' +File_Name +'". Do you want to download it? (Y/N) ')    
         if ans=='Y':
             print('Beginning file download. This might take several minutes.')
-            urlretrieve(url,File_Name,download_callback)   
     else:
         print('File "' +File_Name +'" is detected on your machine.'  )
 def DeePore1(INPUT_SHAPE,OUTPUT_SHAPE):
@@ -103,11 +102,6 @@ def hdf_shapes(Name,Fields):
             Shape[I]=f[Fields[I]].shape  
     return Shape                
 def trainmodel(DataName,TrainList,EvalList,retrain=0,epochs=100,batch_size=100):
-    if retrain !=0:
-        try:
-            tf.compat.v1.disable_v2_behavior()
-        except:
-            pass
     MIN,MAX=np.load('minmax.npy')    
     SaveName='Model.h5';
     INPUT_SHAPE,OUTPUT_SHAPE =hdf_shapes(DataName,('X','Y')); 
@@ -281,7 +275,6 @@ def predict(model,A,res=5):
         output=np.append(output,func)
     return output
 def ecl_distance(A):
-    tf.compat.v1.enable_v2_behavior()
     B=np.zeros((A.shape[0],128,128,3))
     for I in range(A.shape[0]):
         for J in range(A.shape[3]):
