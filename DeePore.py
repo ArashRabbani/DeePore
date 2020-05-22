@@ -25,6 +25,7 @@ def check_get(url,File_Name):
         ans=input('You dont have the file "' +File_Name +'". Do you want to download it? (Y/N) ')    
         if ans=='Y':
             print('Beginning file download. This might take several minutes.')
+            urlretrieve(url,File_Name,download_callback)
     else:
         print('File "' +File_Name +'" is detected on your machine.'  )
 def DeePore1(INPUT_SHAPE,OUTPUT_SHAPE):
