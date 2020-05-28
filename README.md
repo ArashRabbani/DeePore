@@ -64,6 +64,7 @@ Here are 1500 of them to see how textures look like:
 <br />
 <a href="https://www.youtube.com/watch?v=bViDVbmjvK4"><img src="images/vid1.jpg" alt="drawing" width="480"/>
 </a>
+<br />
 ## Demo #1
 
 ```python
