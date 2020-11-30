@@ -4,9 +4,11 @@ __pycache__/
 *$py.class
 BK/
 Data/DeePore_Compact_Data.h5
-Data.h5
-Main.bat
-Main.py
+Data/DeePore_Dataset.h5
+Logs/*.txt
+tmp
+
+
 # C extensions
 *.so
 

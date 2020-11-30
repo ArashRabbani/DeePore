@@ -1,5 +1,5 @@
 import DeePore as dp
-# Quick start: 
+# Part #1    A quick start 
 # Feed your porous material image to see its properties predicted 
 # 1. load the trained model
 model=dp.loadmodel()
@@ -12,8 +12,11 @@ dp.show_feature_maps(A)
 all_preds=dp.predict(model,A,res=4.8) # res is the spatial resolution of image in micron/pixel
 # 5. save results into a text file and also print it in console
 dp.prettyresult(all_preds,'results.txt')
-# Compatibility
-# 1. you can try to load numpy 3-d arrays with same manner
+
+
+
+# Part #2    Compatibility
+# 1. you can try to load numpy 3-d arrays with the same manner
 A=dp.feedsampledata(FileName="Data/Sample.npy")
 # 2. also 2-d images with formats of jpg and png are welcome
 # if you import a 2-d image, the code creates 3 arbitrary mid-slices by flipping the 2-d image
