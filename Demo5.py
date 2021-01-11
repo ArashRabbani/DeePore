@@ -2,7 +2,7 @@ import DeePore as dp
 # Comparing statistics of the training, validation and testing data: 
 # 1. check or download the compact data
 Data_compact='Data\DeePore_Compact_Data.h5'
-Data_compact='..\..\..\BigData\DeePore\DeePore_Compact_Data.h5'
+# Data_compact='..\..\..\BigData\DeePore\DeePore_Compact_Data.h5'
 dp.check_get('https://zenodo.org/record/4297035/files/DeePore_Compact_Data.h5?download=1',Data_compact) 
 # 2. prepare the dataset by removing outliers and creating list of training, validation and test samples
 List=dp.prep(Data_compact)
