@@ -677,19 +677,6 @@ def create_compact_dataset(Path_complete,Path_compact):
         writeh5slice(Y,Path_compact,'Y',Shape=[1515,1])
 
 
-# t=sio.loadmat('YY.mat')['YY']
-# px.remove(Data_compact)
-# a=0
-# for I in range(1,17701):
-#     Name='DB/A'+str(I).zfill(5)+'.mat'
-#     F=dp.feedsampledata(FileName=Name)
-#     px.writeh5slice(F,Data_compact,'X',[128,128,3],a)
-
-#     px.writeh5slice(t[a,:],Data_compact,'Y',[1515,1],a)
-#     a=a+1
-
-
-
 def showentry(A):
     """shows 3 slices of a volume data """
     A=np.squeeze(A)
