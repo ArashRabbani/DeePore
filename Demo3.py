@@ -3,7 +3,6 @@ import DeePore as dp
 # If you want to open images of dataset and visualize them
 # 1. check or download the complete dataset 
 Data_complete='Data\DeePore_Dataset.h5'
-# Data_complete='..\..\..\BigData\DeePore\DeePore_Dataset.h5'
 dp.check_get('https://zenodo.org/record/4297035/files/DeePore_Dataset.h5?download=1',Data_complete)
 # 2. read the first image out of 17700
 A=dp.readh5slice(Data_complete,'X',[0]) 
