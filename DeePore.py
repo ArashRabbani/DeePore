@@ -25,7 +25,7 @@ def check_get(url,File_Name):
             sys.stderr.write("read %d\n" % (readsofar,))
     if not os.path.isfile(File_Name):
         ans=input('You dont have the file "' +File_Name +'". Do you want to download it? (Y/N) ')    
-        if ans=='Y':
+        if ans=='Y' or ans=='y' or ans=='yes' or ans=='Yes' or ans=='YES':
             print('Beginning file download. This might take several minutes.')
             urlretrieve(url,File_Name,download_callback)
     else:
